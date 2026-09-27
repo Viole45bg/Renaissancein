@@ -81,7 +81,7 @@ export default async function Home() {
     telegramEnabled,
   } = await getLinks();
 
-  // Navbar CTA + Bottom CTA both point to Telegram (respects the admin toggle)
+  // Navbar CTA points to Telegram (respects the admin toggle)
   const ctaUrl = telegramEnabled && TELEGRAM_URL ? TELEGRAM_URL : null;
 
   return (
@@ -225,31 +225,6 @@ export default async function Home() {
             }
             .nav-cta:hover { color: var(--gold-deep); transform: none; }
 
-            /* ── Bottom CTA bar ── */
-            .bottom-cta-bar {
-              position: relative; z-index: 1;
-              display: flex; justify-content: center;
-              padding: 48px 24px 80px;
-              pointer-events: auto;
-              background: transparent;
-            }
-            .bottom-cta-bar > * { pointer-events: auto; }
-
-            .bottom-cta-bar .nav-cta {
-              font-size: 14px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
-              color: #241B06;
-              background: linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%);
-              border-radius: 100px; padding: 16px 36px;
-              box-shadow: 0 10px 30px rgba(176,138,30,0.38);
-              transition: box-shadow 0.2s, transform 0.15s;
-              display: inline-block;
-            }
-            .bottom-cta-bar .nav-cta:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 14px 38px rgba(176,138,30,0.48);
-              color: #241B06;
-            }
-
             /* ── Hero ── */
             .hero-market-insights {
               position: relative; padding: 110px 24px 80px;
@@ -287,7 +262,7 @@ export default async function Home() {
 
             /* ── Body section ── */
             .body-section {
-              padding: 64px 24px 88px;
+              padding: 64px 24px 96px;
               background: transparent; position: relative; overflow: visible; z-index: 2;
             }
             .body-inner {
@@ -411,7 +386,7 @@ export default async function Home() {
             .path-perks li::before { content: "✦"; color: var(--gold); margin-right: 10px; font-size: 11px; }
             .path-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; }
             .path-alt { font-size: 12.5px; font-weight: 600; color: var(--muted); }
-            .path-alt:hover { color: var(--gold-deep); }
+            .path-alt:hover { color: #128C7E; }
             .path-soon { font-size: 12.5px; font-weight: 500; color: var(--muted); }
 
             /* ════════════════════════════════════════
@@ -419,23 +394,44 @@ export default async function Home() {
             ════════════════════════════════════════ */
 
             .contact-flow { display: flex; justify-content: center; margin-top: 8px; }
+
+            /* Primary CTA — dark ink with cream text (gold only as a hover halo) */
             .contact-us-btn {
               display: inline-flex; align-items: center; gap: 10px;
               padding: 16px 36px;
               border: none; border-radius: 100px;
-              background: linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%);
-              color: #241B06;
+              background: #1C1710;
+              color: #FBFAF5;
               font-family: var(--font-display), serif;
               font-size: 15px; font-weight: 700; letter-spacing: 0.3px;
               cursor: pointer;
-              box-shadow: 0 10px 30px rgba(176,138,30,0.35);
-              transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+              box-shadow: 0 10px 30px rgba(28,23,16,0.28);
+              transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
             }
             .contact-us-btn:hover {
               transform: translateY(-2px);
-              box-shadow: 0 14px 36px rgba(176,138,30,0.45);
-              filter: brightness(1.04);
+              background: #2B2317;
+              box-shadow: 0 14px 36px rgba(28,23,16,0.35), 0 0 0 1.5px rgba(201,162,39,0.55);
             }
+
+            /* Channel variants — used by the path selector's continue button */
+            .contact-us-btn.telegram {
+              background: var(--telegram);
+              box-shadow: 0 10px 30px rgba(34,158,217,0.35);
+            }
+            .contact-us-btn.telegram:hover {
+              background: #1B8FC4;
+              box-shadow: 0 14px 36px rgba(34,158,217,0.45);
+            }
+            .contact-us-btn.whatsapp {
+              background: var(--whatsapp);
+              box-shadow: 0 10px 30px rgba(37,211,102,0.35);
+            }
+            .contact-us-btn.whatsapp:hover {
+              background: #1FB457;
+              box-shadow: 0 14px 36px rgba(37,211,102,0.45);
+            }
+
             .contact-panel { display: flex; flex-direction: column; align-items: center; gap: 22px; width: 100%; }
             .selector-title {
               font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
@@ -443,6 +439,7 @@ export default async function Home() {
             }
             .selector-title strong { color: var(--ink); }
 
+            /* Channels / pills — solid app colors */
             .channels { display: flex; flex-direction: column; align-items: center; gap: 14px; }
             .flow-summary { font-size: 13px; font-weight: 600; color: var(--muted); }
             .flow-summary b { color: var(--ink); }
@@ -451,25 +448,22 @@ export default async function Home() {
               display: inline-flex; align-items: center; gap: 12px;
               padding: 13px 22px 13px 12px;
               border-radius: 23px;
-              border: 1px solid rgba(201,162,39,0.5);
-              background: #FFFFFF;
-              color: var(--ink);
+              color: #fff;
               text-decoration: none;
               font-size: 15px; font-weight: 700; letter-spacing: 0.2px;
-              box-shadow: 0 8px 22px rgba(143,111,20,0.16);
-              transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+              transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
             }
-            .contact-pill:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 12px 28px rgba(143,111,20,0.24); }
-            .contact-pill.whatsapp .pill-icon-wrap { background: var(--whatsapp); }
-            .contact-pill.telegram .pill-icon-wrap { background: var(--telegram); }
+            .contact-pill:hover { transform: translateY(-2px); filter: brightness(1.06); }
+            .contact-pill.whatsapp { background: var(--whatsapp); box-shadow: 0 8px 24px rgba(37,211,102,0.30); }
+            .contact-pill.telegram { background: var(--telegram); box-shadow: 0 8px 24px rgba(34,158,217,0.30); }
             .pill-icon-wrap {
               width: 34px; height: 34px; flex-shrink: 0;
               border-radius: 10px;
-              background: var(--gold);
+              background: rgba(255,255,255,0.20);
               display: grid; place-items: center;
             }
             .pill-glyph { width: 18px; height: 18px; fill: #fff; display: block; }
-            .pill-arrow { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.6; }
+            .pill-arrow { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.85; }
             .pill-label { white-space: nowrap; }
             .contact-close {
               align-self: center; margin-top: 4px;
@@ -493,7 +487,7 @@ export default async function Home() {
             @media (max-width: 640px) {
               .brand-bar { padding: 12px 16px; }
               .brand-sub { display: none; }
-              .body-section { padding: 48px 18px 64px; }
+              .body-section { padding: 48px 18px 72px; }
               .body-text { font-size: 15px; }
               .features { gap: 12px; }
               .features-grid-2 { grid-template-columns: 1fr; }
@@ -503,7 +497,6 @@ export default async function Home() {
               .hero-market-insights { padding: 72px 18px 48px; }
               .hero-title { font-size: 28px; }
               .hero-text { font-size: 15.5px; margin-bottom: 32px; }
-              .bottom-cta-bar { padding: 32px 16px 48px; }
               .ticker { margin: 64px calc(50% - 50vw) 48px; }
               .path-field { width: 100%; }
               .path-choice { padding: 12px 12px; gap: 12px; }
@@ -644,15 +637,6 @@ export default async function Home() {
             />
           </div>
         </section>
-
-        {/* ── Bottom CTA bar → Telegram ── */}
-        {ctaUrl && (
-          <div className="bottom-cta-bar">
-            <a href={ctaUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
-              Connect with the Renaissance Team
-            </a>
-          </div>
-        )}
 
         {/* ── Footer ── */}
         <footer>
