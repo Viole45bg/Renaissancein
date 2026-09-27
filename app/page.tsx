@@ -675,10 +675,7 @@ export default async function Home() {
               <span style={{ whiteSpace: "nowrap" }}>INVESTORS CLUB</span>
             </h1>
             <p className="hero-text">
-              Step into a community where timeless wisdom meets modern markets. Whether you're focused
-              on growing your wealth, generating passive income, or building a legacy that lasts,
-              Renaissance Investors Club provides market insights, curated education, and guided
-              trading strategies to help you invest with clarity and confidence.
+              Renaissance Investors and Retirement Club assist members during the accumulation phase of their finances as we focus on transformative investment strategies, different asset classes and opportunities characterized by creativity, originality, and forward-thinking tips to help members in their journey.
             </p>
 
             <div className="hero-contact">
@@ -709,7 +706,7 @@ export default async function Home() {
         {/* ── Features & Experience ── */}
         <section className="body-section">
           <div className="body-inner fade-up">
-            <div className="eyebrow">Why Join Us</div>
+            <div className="eyebrow">Why Choose RIC </div>
             <div className="features features-grid-2">
               <div className="feature">
                 <div className="feature-icon">
@@ -717,8 +714,8 @@ export default async function Home() {
                     <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
                   </svg>
                 </div>
-                <h3>Education</h3>
-                <p>Curated resources that build real fluency — from market fundamentals to advanced strategy.</p>
+                <h3>Mentorship </h3>
+                <p>We are a community of personal finance and FIRE enthusiasts dedicated to sharing knowledge about building wealth, long-term investing, and all things related to money</p>
               </div>
               <div className="feature">
                 <div className="feature-icon">
@@ -726,8 +723,8 @@ export default async function Home() {
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
                   </svg>
                 </div>
-                <h3>Trading Guidance</h3>
-                <p>Expert-led, step-by-step support so every trade decision is informed and confident.</p>
+                <h3> Guidance</h3>
+                <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
               </div>
             </div>
           </div>
