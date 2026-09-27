@@ -1,15 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { neon } from "@neondatabase/serverless";
-import { Montserrat } from "next/font/google";
+import { Playfair_Display, Lato } from "next/font/google";
 import Logo from "../components/Logo";
 import ContactUs from "../components/ContactUs";
 import ExperienceSelector from "../components/ExperienceSelector";
 
-const display = Montserrat({
+const display = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-display",
+});
+
+const body = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-body",
 });
 
 const sql = neon(process.env.DATABASE_URL!);
@@ -63,9 +69,9 @@ export const dynamic = "force-dynamic";
 export const runtime = "edge";
 
 export const metadata = {
-  title: "AWR — Alpha Wealth & Retirement Club",
+  title: "Renaissance Investors Club — Wisdom · Wealth · Legacy",
   description:
-    "Grow your wealth, generate passive income, and plan for retirement with community-driven market insights, educational resources, and trading guidance.",
+    "Invest with clarity and confidence. Renaissance Investors Club brings together community-driven market insights, curated education, and expert trading guidance to grow your wealth, generate passive income, and build a lasting legacy.",
 };
 
 export default async function Home() {
@@ -80,38 +86,41 @@ export default async function Home() {
   const ctaUrl = telegramEnabled && TELEGRAM_URL ? TELEGRAM_URL : null;
 
   return (
-    <main className={display.variable}>
+    <main className={`${display.variable} ${body.variable}`}>
       <style
         dangerouslySetInnerHTML={{
           __html: `
             :root {
-              --navy:      #050d1a;
-              --navy-mid:  #091426;
-              --navy-card: #0d1f3a;
-              --blue:      #1a6ef5;
-              --blue-glow: #4d9fff;
-              --line:      rgba(255,255,255,0.10);
-              --white:     #ffffff;
-              --offwhite:  rgba(255,255,255,0.88);
-              --muted:     rgba(255,255,255,0.55);
-              --whatsapp:  #25D366;
-              --telegram:  #229ED9;
+              --paper:      #FBFAF5;
+              --paper-deep: #F5F1E6;
+              --card:       #FFFFFF;
+              --ink:        #1C1710;
+              --ink-soft:   rgba(28,23,16,0.80);
+              --muted:      rgba(28,23,16,0.55);
+              --gold:       #C9A227;
+              --gold-deep:  #8F6F14;
+              --gold-bright:#DDB94C;
+              --gold-light: #F3E3A6;
+              --line:       rgba(143,111,20,0.22);
+              --whatsapp:   #25D366;
+              --telegram:   #229ED9;
             }
 
             *, *::before, *::after { box-sizing: border-box; }
             html { scroll-behavior: smooth; }
-            html, body { margin: 0; padding: 0; background: var(--navy); color: var(--white); overflow-x: hidden; }
+            html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); overflow-x: hidden; }
 
             body {
-              font-family: var(--font-display), system-ui, sans-serif;
+              font-family: var(--font-body), system-ui, sans-serif;
               -webkit-font-smoothing: antialiased;
               position: relative;
             }
 
             /* ══════════════════════════════════════════
-               BACKGROUND: perspective city grid
+               BACKGROUND: golden globe & latitude lines
             ══════════════════════════════════════════ */
 
+            /* Gold star-specks, soft halo, fine dot lattice */
             body::before {
               content: "";
               position: fixed;
@@ -119,42 +128,52 @@ export default async function Home() {
               z-index: 0;
               pointer-events: none;
               background-image:
-                radial-gradient(circle 1.5px at 18% 72%, rgba(77,159,255,0.55) 0%, transparent 100%),
-                radial-gradient(circle 1px   at 31% 85%, rgba(77,159,255,0.40) 0%, transparent 100%),
-                radial-gradient(circle 2px   at 47% 78%, rgba(77,159,255,0.60) 0%, transparent 100%),
-                radial-gradient(circle 1px   at 62% 91%, rgba(77,159,255,0.35) 0%, transparent 100%),
-                radial-gradient(circle 1.5px at 74% 68%, rgba(77,159,255,0.50) 0%, transparent 100%),
-                radial-gradient(circle 1px   at 83% 80%, rgba(77,159,255,0.40) 0%, transparent 100%),
-                radial-gradient(circle 2px   at 9%  80%, rgba(77,159,255,0.45) 0%, transparent 100%),
-                radial-gradient(circle 1px   at 55% 62%, rgba(77,159,255,0.30) 0%, transparent 100%),
-                radial-gradient(circle 1.5px at 92% 75%, rgba(77,159,255,0.45) 0%, transparent 100%),
-                radial-gradient(circle 1px   at 38% 95%, rgba(77,159,255,0.30) 0%, transparent 100%),
-                radial-gradient(ellipse 80% 55% at 50% 38%, rgba(26,110,245,0.22) 0%, rgba(26,110,245,0.06) 45%, transparent 70%),
-                linear-gradient(rgba(42,127,255,0.055) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(42,127,255,0.055) 1px, transparent 1px);
+                radial-gradient(circle 1.5px at 18% 72%, rgba(201,162,39,0.50) 0%, transparent 100%),
+                radial-gradient(circle 1px   at 31% 85%, rgba(201,162,39,0.38) 0%, transparent 100%),
+                radial-gradient(circle 2px   at 47% 78%, rgba(201,162,39,0.55) 0%, transparent 100%),
+                radial-gradient(circle 1px   at 62% 91%, rgba(201,162,39,0.35) 0%, transparent 100%),
+                radial-gradient(circle 1.5px at 74% 68%, rgba(201,162,39,0.48) 0%, transparent 100%),
+                radial-gradient(circle 1px   at 83% 80%, rgba(201,162,39,0.38) 0%, transparent 100%),
+                radial-gradient(circle 2px   at 9%  80%, rgba(201,162,39,0.42) 0%, transparent 100%),
+                radial-gradient(circle 1px   at 55% 62%, rgba(201,162,39,0.30) 0%, transparent 100%),
+                radial-gradient(circle 1.5px at 92% 75%, rgba(201,162,39,0.42) 0%, transparent 100%),
+                radial-gradient(circle 1px   at 38% 95%, rgba(201,162,39,0.30) 0%, transparent 100%),
+                radial-gradient(ellipse 80% 55% at 50% 38%, rgba(201,162,39,0.10) 0%, rgba(201,162,39,0.03) 45%, transparent 70%),
+                radial-gradient(rgba(201,162,39,0.12) 1px, transparent 1.4px);
               background-size:
                 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%,
                 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%,
                 100% 100%,
-                52px 52px,
-                52px 52px;
+                34px 34px;
             }
 
+            /* The golden globe watermark — meridians, latitudes,
+               faint continents and glowing gold nodes */
+            .bg-globe {
+              position: fixed;
+              inset: 0;
+              z-index: 0;
+              pointer-events: none;
+              background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900' viewBox='0 0 900 900'><g fill='none' stroke='%23C9A227'><circle cx='450' cy='450' r='430' stroke-opacity='0.5' stroke-width='1.4'/><ellipse cx='450' cy='450' rx='145' ry='430' stroke-opacity='0.28' stroke-width='1.1'/><ellipse cx='450' cy='450' rx='288' ry='430' stroke-opacity='0.24' stroke-width='1.1'/><ellipse cx='450' cy='450' rx='398' ry='430' stroke-opacity='0.2' stroke-width='1.1'/><ellipse cx='450' cy='450' rx='430' ry='130' stroke-opacity='0.32' stroke-width='1.1'/><ellipse cx='450' cy='312' rx='366' ry='80' stroke-opacity='0.22' stroke-width='1'/><ellipse cx='450' cy='566' rx='400' ry='96' stroke-opacity='0.22' stroke-width='1'/><ellipse cx='450' cy='198' rx='238' ry='42' stroke-opacity='0.16' stroke-width='1'/><ellipse cx='450' cy='656' rx='288' ry='50' stroke-opacity='0.16' stroke-width='1'/></g><path d='M360 310q50 -40 110 -22q64 18 72 66q8 44 -36 66q-60 30 -114 6q-48 -22 -40 -64q6 -34 8 -52z' fill='%23C9A227' fill-opacity='0.09'/><path d='M520 520q44 -20 90 0q42 18 38 60q-4 42 -46 56q-48 16 -86 -6q-34 -20 -26 -56q6 -34 30 -54z' fill='%23C9A227' fill-opacity='0.08'/><path d='M96 640C240 470 660 470 804 640' fill='none' stroke='%23C9A227' stroke-opacity='0.22' stroke-width='1.2'/><g fill='%23C9A227'><circle cx='450' cy='450' r='4' fill-opacity='0.55'/><circle cx='216' cy='322' r='3.5' fill-opacity='0.5'/><circle cx='668' cy='536' r='3.5' fill-opacity='0.5'/><circle cx='552' cy='236' r='3' fill-opacity='0.45'/><circle cx='300' cy='636' r='3' fill-opacity='0.45'/><circle cx='752' cy='330' r='2.5' fill-opacity='0.4'/><circle cx='170' cy='510' r='2.5' fill-opacity='0.4'/></g></svg>");
+              background-repeat: no-repeat;
+              background-position: 50% 12%;
+              background-size: min(92vmin, 800px);
+            }
+
+            /* Golden latitude arcs rising over the lower page (globe horizon) */
             body::after {
               content: "";
               position: fixed;
               left: 0; right: 0; bottom: 0;
-              height: 65vh;
+              height: 68vh;
               z-index: 0;
               pointer-events: none;
               background-image:
-                linear-gradient(rgba(42,127,255,0.09) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(42,127,255,0.09) 1px, transparent 1px);
-              background-size: 52px 52px;
-              transform: perspective(500px) rotateX(40deg);
-              transform-origin: 50% 0%;
-              -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-              mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+                repeating-radial-gradient(circle at 50% 128%, transparent 0 20%, rgba(201,162,39,0.18) 20% 20.7%, transparent 20.7% 26%),
+                linear-gradient(90deg, rgba(201,162,39,0.09) 1px, transparent 1px);
+              background-size: 100% 100%, 78px 78px;
+              -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0.8) 100%);
+              mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 50%, rgba(0,0,0,0.8) 100%);
             }
 
             header, main > div, section, footer, .ticker {
@@ -163,14 +182,14 @@ export default async function Home() {
             }
 
             a { color: inherit; text-decoration: none; }
-            a:focus-visible, button:focus-visible { outline: 2px solid var(--blue-glow); outline-offset: 3px; }
+            a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
             section[id] { scroll-margin-top: 90px; }
             #contact { scroll-margin-top: 90px; }
 
             /* ── Ticker ── */
             .ticker {
               overflow: hidden;
-              background: var(--blue);
+              background: linear-gradient(90deg, #B18A22 0%, #D4AF37 50%, #B18A22 100%);
               padding: 10px 0;
               margin: 88px calc(50% - 50vw) 64px;
             }
@@ -178,18 +197,19 @@ export default async function Home() {
             .ticker-group { display: flex; align-items: center; white-space: nowrap; }
             .ticker-item {
               display: inline-flex; align-items: center; gap: 24px; padding-right: 24px;
-              font-size: 10px; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase; color: #fff;
+              font-family: var(--font-body), system-ui, sans-serif;
+              font-size: 10px; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase; color: #241B06;
             }
-            .ticker-item::after { content: "✦"; font-size: 8px; opacity: 0.7; }
+            .ticker-item::after { content: "✦"; font-size: 8px; opacity: 0.55; }
             @keyframes tickerScroll { from { transform: translateX(-50%); } to { transform: translateX(0); } }
             @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
 
             /* ── Nav ── */
             .brand-bar {
               position: sticky; top: 0; z-index: 20;
-              background: rgba(5,13,26,0.88);
+              background: rgba(251,250,245,0.9);
               backdrop-filter: blur(14px);
-              border-bottom: none;
+              border-bottom: 1px solid rgba(201,162,39,0.25);
               padding: 14px 24px;
             }
             .brand-bar-inner {
@@ -197,15 +217,15 @@ export default async function Home() {
               display: flex; align-items: center; justify-content: space-between; gap: 16px;
             }
             .brand { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-decoration: none; }
-            .brand-sub { font-size: 9px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: var(--muted); }
+            .brand-sub { font-size: 9px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: var(--gold-deep); }
 
             /* Nav CTA as plain text */
             .nav-cta {
               font-size: 11px;
-              font-weight: 300;
-              letter-spacing: 0.5px;
+              font-weight: 700;
+              letter-spacing: 1.6px;
               text-transform: uppercase;
-              color: var(--offwhite);
+              color: var(--ink-soft);
               background: transparent;
               border-radius: 0;
               padding: 4px 0;
@@ -218,9 +238,9 @@ export default async function Home() {
               display: inline-flex;
               align-items: center;
             }
-            .nav-cta:hover { color: var(--white); transform: none; }
+            .nav-cta:hover { color: var(--gold-deep); transform: none; }
 
-            /* ── Bottom CTA bar (Organic flow) ── */
+            /* ── Bottom CTA bar ── */
             .bottom-cta-bar {
               position: relative;
               z-index: 1;
@@ -232,24 +252,24 @@ export default async function Home() {
             }
             .bottom-cta-bar > * { pointer-events: auto; }
 
-            /* Distinct styling for the Bottom CTA Pill */
+            /* Distinct styling for the Bottom CTA Pill (metallic gold) */
             .bottom-cta-bar .nav-cta {
               font-size: 14px;
               font-weight: 700;
               letter-spacing: 0.6px;
               text-transform: uppercase;
-              color: #fff;
-              background: var(--blue);
+              color: #241B06;
+              background: linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%);
               border-radius: 100px;
               padding: 16px 36px;
-              box-shadow: 0 8px 28px rgba(26,110,245,0.45);
-              transition: background 0.2s, transform 0.15s;
+              box-shadow: 0 10px 30px rgba(176,138,30,0.38);
+              transition: box-shadow 0.2s, transform 0.15s;
               display: inline-block;
             }
             .bottom-cta-bar .nav-cta:hover {
-              background: var(--blue-glow);
               transform: translateY(-2px);
-              color: #fff;
+              box-shadow: 0 14px 38px rgba(176,138,30,0.48);
+              color: #241B06;
             }
 
             /* ── Hero: Market Insights ── */
@@ -264,20 +284,25 @@ export default async function Home() {
               margin: 0 auto;
             }
             .hero-title {
-              font-size: 42px;
+              font-size: 44px;
               font-weight: 800;
               margin: 0 0 18px;
-              line-height: 1.1;
-              letter-spacing: -0.02em;
-              background: linear-gradient(90deg, #fff 0%, #4d9fff 100%);
+              line-height: 1.08;
+              letter-spacing: 0.01em;
+              color: var(--ink);
+            }
+            .hero-title-gold {
+              display: inline-block;
+              color: var(--gold-deep);
+              background: linear-gradient(92deg, #8F6F14 0%, #C9A227 28%, #F0DA8A 50%, #C9A227 72%, #8F6F14 100%);
               -webkit-background-clip: text;
               background-clip: text;
               -webkit-text-fill-color: transparent;
             }
             .hero-text {
-              font-size: 15px;
-              line-height: 1.7;
-              color: var(--offwhite);
+              font-size: 15.5px;
+              line-height: 1.8;
+              color: var(--ink-soft);
               max-width: 760px;
               margin: 0 auto 40px;
             }
@@ -300,12 +325,12 @@ export default async function Home() {
               gap: 10px;
             }
 
-            /* ── Original Hero ── */
-            .hero { position: relative; width: 100%; line-height: 0; background: var(--navy); }
+            /* ── Original Hero (Banner) ── */
+            .hero { position: relative; width: 100%; line-height: 0; background: var(--paper); }
             .hero-image { display: block; width: 100%; height: auto; object-fit: cover; }
             .hero-fade {
-              position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
-              background: linear-gradient(to bottom, transparent 0%, var(--navy) 100%);
+              position: absolute; bottom: 0; left: 0; right: 0; height: 140px;
+              background: linear-gradient(to bottom, transparent 0%, var(--paper) 100%);
               pointer-events: none; z-index: 2;
             }
 
@@ -323,11 +348,11 @@ export default async function Home() {
             }
             .eyebrow {
               font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-              color: var(--blue-glow); margin-bottom: 22px;
+              color: var(--gold-deep); margin-bottom: 22px;
             }
             .body-text {
               font-size: 17px; font-weight: 500; line-height: 1.9;
-              color: var(--offwhite);
+              color: var(--ink-soft);
               max-width: 660px; margin: 0 auto 48px;
             }
 
@@ -339,19 +364,20 @@ export default async function Home() {
               margin: 0 auto;
             }
             .feature {
-              background: var(--navy-card);
-              border: 1px solid rgba(77,159,255,0.2);
+              background: var(--card);
+              border: 1px solid rgba(201,162,39,0.35);
               border-radius: 18px; padding: 28px 22px; text-align: left;
+              box-shadow: 0 12px 32px rgba(143,111,20,0.08);
             }
             .feature-icon {
               width: 36px; height: 36px; border-radius: 10px;
-              background: rgba(26,110,245,0.18);
+              background: rgba(201,162,39,0.16);
               display: grid; place-items: center;
               margin-bottom: 16px;
             }
-            .feature-icon svg { width: 18px; height: 18px; fill: var(--blue-glow); }
-            .feature h3 { margin: 0 0 10px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--white); }
-            .feature p { margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(255,255,255,0.70); }
+            .feature-icon svg { width: 18px; height: 18px; fill: #A8851F; }
+            .feature h3 { margin: 0 0 10px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink); }
+            .feature p { margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
 
             /* ════════════════════════════════════════
                ContactUs component styles
@@ -369,20 +395,20 @@ export default async function Home() {
               padding: 16px 36px;
               border: none;
               border-radius: 100px;
-              background: var(--blue);
-              color: #fff;
-              font-family: var(--font-display), sans-serif;
+              background: linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%);
+              color: #241B06;
+              font-family: var(--font-display), serif;
               font-size: 15px;
               font-weight: 700;
               letter-spacing: 0.3px;
               cursor: pointer;
-              box-shadow: 0 10px 32px rgba(26,110,245,0.40);
-              transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+              box-shadow: 0 10px 30px rgba(176,138,30,0.35);
+              transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
             }
             .contact-us-btn:hover {
               transform: translateY(-2px);
-              background: var(--blue-glow);
-              box-shadow: 0 14px 38px rgba(26,110,245,0.50);
+              box-shadow: 0 14px 36px rgba(176,138,30,0.45);
+              filter: brightness(1.04);
             }
             .contact-panel {
               display: flex;
@@ -409,9 +435,9 @@ export default async function Home() {
               letter-spacing: 1.8px;
               text-transform: uppercase;
               color: var(--muted);
-              font-family: var(--font-display), sans-serif;
+              font-family: var(--font-body), system-ui, sans-serif;
             }
-            .selector-title strong { color: var(--white); }
+            .selector-title strong { color: var(--ink); }
 
             /* Dropdown */
             .dropdown { position: relative; }
@@ -432,10 +458,10 @@ export default async function Home() {
               min-width: 260px;
               padding: 14px 22px;
               border-radius: 100px;
-              border: 1.5px solid rgba(255,255,255,0.15);
-              background: rgba(255,255,255,0.06);
-              color: var(--white);
-              font-family: var(--font-display), sans-serif;
+              border: 1.5px solid rgba(201,162,39,0.45);
+              background: rgba(255,255,255,0.72);
+              color: var(--ink);
+              font-family: var(--font-display), serif;
               font-size: 14px;
               font-weight: 600;
               cursor: pointer;
@@ -443,303 +469,11 @@ export default async function Home() {
               transition: border-color 0.2s, background 0.2s;
             }
             .dropdown-toggle:hover {
-              border-color: rgba(77,159,255,0.5);
-              background: rgba(255,255,255,0.09);
+              border-color: var(--gold);
+              background: #ffffff;
             }
             .dropdown-value.placeholder { color: var(--muted); }
             .dropdown-chevron {
               flex-shrink: 0;
-              color: var(--muted);
-              transition: transform 0.2s;
-            }
-            .dropdown.open .dropdown-chevron { transform: rotate(180deg); }
-            .dropdown-menu {
-              position: absolute;
-              top: calc(100% + 8px);
-              left: 50%;
-              transform: translateX(-50%);
-              width: min(100vw - 40px, 300px);
-              z-index: 30;
-              background: #0d1f3a;
-              border: 1px solid rgba(77,159,255,0.2);
-              border-radius: 18px;
-              box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-              padding: 8px;
-            }
-            .dropdown-option {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 12px;
-              width: 100%;
-              padding: 13px 16px;
-              border: none;
-              border-radius: 12px;
-              background: transparent;
-              color: var(--offwhite);
-              font-family: var(--font-display), sans-serif;
-              font-size: 14px;
-              font-weight: 600;
-              text-align: left;
-              cursor: pointer;
-              transition: background 0.15s;
-            }
-            .dropdown-option:hover { background: rgba(77,159,255,0.12); }
-            .dropdown-option.selected { color: var(--blue-glow); }
-            .dropdown-check {
-              width: 22px; height: 22px;
-              flex-shrink: 0;
-              border-radius: 50%;
-              border: 2px solid rgba(255,255,255,0.15);
-              display: grid;
-              place-items: center;
-              transition: background 0.15s, border-color 0.15s;
-            }
-            .dropdown-option.selected .dropdown-check {
-              background: var(--blue);
-              border-color: var(--blue);
-            }
-
-            /* Channels / pills */
-            .channels {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 14px;
-            }
-            .flow-summary {
-              font-size: 13px;
-              font-weight: 600;
-              color: var(--muted);
-            }
-            .flow-summary b { color: var(--white); }
-            .contact-pills {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              flex-wrap: nowrap;
-              gap: 12px;
-            }
-            .contact-pill {
-              display: inline-flex;
-              align-items: center;
-              gap: 12px;
-              padding: 13px 22px 13px 12px;
-              border-radius: 23px;
-              text-decoration: none;
-              font-size: 15px;
-              font-weight: 700;
-              letter-spacing: 0.2px;
-              transition: transform 0.2s, box-shadow 0.2s;
-            }
-            .contact-pill:hover { transform: translateY(-2px); }
-            .contact-pill.whatsapp {
-              background: var(--whatsapp);
-              color: #fff;
-              box-shadow: 0 8px 24px rgba(37,211,102,0.30);
-            }
-            .contact-pill.telegram {
-              background: var(--telegram);
-              color: #fff;
-              box-shadow: 0 8px 24px rgba(34,158,217,0.30);
-            }
-            .pill-icon-wrap {
-              width: 34px; height: 34px;
-              flex-shrink: 0;
-              border-radius: 10px;
-              background: rgba(255,255,255,0.20);
-              display: grid;
-              place-items: center;
-            }
-            .pill-glyph { width: 18px; height: 18px; fill: #fff; display: block; }
-            .pill-arrow { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.85; }
-            .pill-label { white-space: nowrap; }
-            .contact-close {
-              align-self: center;
-              margin-top: 4px;
-              width: 34px; height: 34px;
-              border-radius: 50%;
-              border: 1px solid rgba(255,255,255,0.15);
-              background: rgba(255,255,255,0.06);
-              color: var(--muted);
-              font-size: 17px;
-              line-height: 1;
-              cursor: pointer;
-              transition: transform 0.25s, color 0.2s, background 0.2s;
-            }
-            .contact-close:hover {
-              transform: rotate(90deg);
-              color: var(--white);
-              background: rgba(255,255,255,0.12);
-            }
-
-            /* Animations */
-            @media (prefers-reduced-motion: no-preference) {
-              .contact-panel.revealed,
-              .channels.revealed {
-                animation: pillIn 0.35s cubic-bezier(.22,1,.36,1) both;
-              }
-              @keyframes pillIn {
-                from { opacity: 0; transform: translateY(10px) scale(.97); }
-                to   { opacity: 1; transform: none; }
-              }
-            }
-
-            /* ── Footer ─ */
-            footer { padding: 36px 24px; background: rgba(9,20,38,0.85); border-top: 1px solid var(--line); text-align: center; }
-            .footer-name { font-size: 11px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-            .footer-copy { font-size: 11px; font-weight: 500; color: var(--muted); line-height: 1.6; margin: 0 auto; max-width: 560px; }
-
-            /* ── Responsive ── */
-            @media (max-width: 640px) {
-              .brand-bar { padding: 12px 16px; }
-              .brand-sub { display: none; }
-              .body-section { padding: 48px 18px 64px; }
-              .body-text { font-size: 15px; }
-              .features { gap: 12px; }
-              .features-grid-2 { grid-template-columns: 1fr; }
-              .selector-row { flex-direction: column; align-items: center; }
-              .contact-pill { padding: 11px 14px 11px 10px; font-size: 14px; }
-              .pill-arrow { display: none; }
-              .contact-pills { gap: 10px; }
-
-              .hero-market-insights { padding: 72px 18px 48px; }
-              .hero-title { font-size: 30px; }
-              .hero-text { font-size: 16px; margin-bottom: 32px; }
-
-              .bottom-cta-bar { padding: 32px 16px 48px; }
-              .ticker { margin: 64px calc(50% - 50vw) 48px; }
-            }
-
-            @media (prefers-reduced-motion: no-preference) {
-              .fade-up { animation: fadeUp 0.75s cubic-bezier(.22,1,.36,1) both; }
-              @keyframes fadeUp {
-                from { opacity: 0; transform: translateY(18px); }
-                to   { opacity: 1; transform: none; }
-              }
-            }
-          `,
-        }}
-      />
-
-      <div>
-        {/* ── Nav ── */}
-        <header className="brand-bar">
-          <div className="brand-bar-inner">
-            <Link href="/" className="brand">
-              <Logo width={160} color="#ffffff" />
-              <span className="brand-sub">Income · Growth · Freedom</span>
-            </Link>
-
-            {/* Navbar CTA → Telegram */}
-            {ctaUrl && (
-              <a href={ctaUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
-                Connect with Us
-              </a>
-            )}
-          </div>
-        </header>
-
-        {/* ── Hero: Market Insights ── */}
-        <section className="hero-market-insights" id="contact">
-          <div className="hero-inner fade-up">
-            <h1 className="hero-title">
-              ALPHA WEALTH <br />
-              <span style={{ whiteSpace: "nowrap" }}>& RETIREMENT CLUB</span>
-            </h1>
-            <p className="hero-text">
-              Take the next step toward building long-term financial confidence and achieving your investment goals. Whether you're looking to grow your wealth, generate passive income, or plan for retirement, our community provides valuable market insights, educational resources, and trading guidance to help you make informed financial decisions.
-            </p>
-
-            <div className="hero-contact">
-              <ContactUs
-                whatsappUrl={WHATSAPP_URL}
-                telegramUrl={TELEGRAM_URL}
-                whatsappEnabled={whatsappEnabled}
-                telegramEnabled={telegramEnabled}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ── Original Hero (Banner) ── */}
-        <section className="hero">
-          <Image
-            src="/banner.jpg"
-            alt="Alpha Wealth & Retirement Club — Income, Growth, Freedom"
-            width={1536}
-            height={802}
-            priority
-            sizes="100vw"
-            className="hero-image"
-          />
-          <div className="hero-fade" aria-hidden="true" />
-        </section>
-
-        {/* ── Features & Experience ── */}
-        <section className="body-section">
-          <div className="body-inner fade-up">
-            <div className="eyebrow">Why Join Us</div>
-            <div className="features features-grid-2">
-              <div className="feature">
-                <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
-                  </svg>
-                </div>
-                <h3>Education</h3>
-                <p>Resources that build real knowledge — from fundamentals to advanced strategy.</p>
-              </div>
-              <div className="feature">
-                <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                  </svg>
-                </div>
-                <h3>Trading Guidance</h3>
-                <p>Step-by-step support so every trade decision is informed and confident.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Ticker (full width) ── */}
-          <div className="ticker" role="status" aria-label="Now accepting new members">
-            <div className="ticker-track">
-              {[0, 1].map((copy) => (
-                <div className="ticker-group" key={copy} aria-hidden={copy === 1}>
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <span className="ticker-item" key={i}>
-                      Now accepting new members
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="body-inner fade-up">
-            <div className="eyebrow">Select Your Experience</div>
-            <ExperienceSelector />
-          </div>
-        </section>
-
-        {/* ── Bottom CTA bar → Telegram ── */}
-        {ctaUrl && (
-          <div className="bottom-cta-bar">
-            <a href={ctaUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
-              Connect with AWR Team
-            </a>
-          </div>
-        )}
-
-        {/* ── Footer ── */}
-        <footer>
-          <div className="footer-name">Alpha Wealth &amp; Retirement Club</div>
-          <p className="footer-copy">
-            © {new Date().getFullYear()} AWR — Alpha Wealth &amp; Retirement Club. All rights reserved.
-          </p>
-        </footer>
-      </div>
-    </main>
-  );
-}
+              color: var(--gold-deep);
+              transition: transform 0.
