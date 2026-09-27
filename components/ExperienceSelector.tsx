@@ -23,7 +23,7 @@ const PATHS: Path[] = [
     desc: "Build core knowledge and invest with confidence from day one.",
     perks: [
       "Structured starter curriculum, plain-English only",
-      "Guided market briefings twice a week",
+      "Guided market briefings",
       "Step-by-step onboarding — your first trade, done right",
     ],
     icon: (
