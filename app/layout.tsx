@@ -1,29 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Playfair_Display, Lato } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const display = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-display",
+  display: "swap",
 });
 
-const outfit = Outfit({
+const body = Lato({
   subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
-  variable: "--font-outfit",
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.connectwithawrteam.com"),
-  title: "Alpha Wealth & Retirement Club AWR — Grow Wealth. Create Freedom.",
+  metadataBase: new URL("https://renaissanceinvestorsclub.com"),
+  title: "Renaissance Investors Club — Wisdom · Wealth · Legacy",
   description:
-    "Join Alpha Wealth & Retirement Club to build long-term financial confidence. Access market insights, educational resources, and trading guidance for wealth growth, passive income, and retirement planning.",
+    "Join Renaissance Investors Club to invest with clarity and confidence. Access market insights, curated education, and expert trading guidance for wealth growth, passive income, and legacy building.",
   keywords: [
-    "Alpha Wealth & Retirement Club",
-    "AWR",
-    "Grow Wealth",
-    "Create Freedom",
+    "Renaissance Investors Club",
+    "investors club",
+    "Wisdom Wealth Legacy",
     "financial freedom",
     "wealth building",
     "retirement planning",
@@ -32,34 +33,34 @@ export const metadata: Metadata = {
     "trading guidance",
     "market insights",
     "financial education",
-    "income growth freedom",
   ],
-  authors: [{ name: "Alpha Wealth & Retirement Club" }],
+  authors: [{ name: "Renaissance Investors Club" }],
+  alternates: { canonical: "/" },
   other: {
     "fb:app_id": "YOUR_APP_ID_HERE",
   },
   openGraph: {
-    title: "Alpha Wealth & Retirement Club AWR — Grow Wealth. Create Freedom.",
+    title: "Renaissance Investors Club — Wisdom · Wealth · Legacy",
     description:
-      "Join AWR to build long-term financial confidence. Access market insights, educational resources, and trading guidance for wealth growth, passive income, and retirement planning.",
-    url: "https://www.connectwithawrteam.com",
-    siteName: "Alpha Wealth & Retirement Club",
+      "Join Renaissance Investors Club to invest with clarity and confidence. Market insights, curated education, and expert trading guidance for wealth growth, passive income, and legacy building.",
+    url: "https://renaissanceinvestorsclub.com",
+    siteName: "Renaissance Investors Club",
     type: "website",
     images: [
       {
-        url: "https://www.connectwithawrteam.com/og-image.png",
+        url: "https://renaissanceinvestorsclub.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Alpha Wealth & Retirement Club — Grow Wealth. Create Freedom. Income-Growth-Freedom",
+        alt: "Renaissance Investors Club — Wisdom · Wealth · Legacy. Golden globe emblem.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alpha Wealth & Retirement Club AWR",
+    title: "Renaissance Investors Club",
     description:
-      "Join AWR to build long-term financial confidence. Access market insights, educational resources, and trading guidance for wealth growth, passive income, and retirement planning.",
-    images: ["https://www.connectwithawrteam.com/og-image.png"],
+      "Join Renaissance Investors Club to invest with clarity and confidence. Market insights, curated education, and expert trading guidance for wealth growth, passive income, and legacy building.",
+    images: ["https://renaissanceinvestorsclub.com/og-image.png"],
   },
 };
 
@@ -68,7 +69,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#ffffff",
+  themeColor: "#FBFAF5",
 };
 
 export default function RootLayout({
@@ -77,9 +78,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-white overflow-x-hidden">
+    <html lang="en" className="overflow-x-hidden">
       <body
-        className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-white text-slate-900 min-h-screen m-0 p-0 overflow-x-hidden`}
+        className={`${display.variable} ${body.variable} antialiased min-h-screen m-0 p-0 overflow-x-hidden`}
+        style={{
+          backgroundColor: "#FBFAF5",
+          color: "#1C1710",
+          fontFamily: "var(--font-body), system-ui, sans-serif",
+        }}
       >
         {children}
       </body>
