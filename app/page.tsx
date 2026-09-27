@@ -14,7 +14,7 @@ const display = Playfair_Display({
 
 const body = Lato({
   subsets: ["latin"],
-  weight: ["300", "400", "700", "900"],   // ← added "900"
+  weight: ["300", "400", "700", "900"],
   variable: "--font-body",
 });
 
@@ -35,15 +35,14 @@ async function getLinks() {
       )
     `;
 
-    // Backfill columns if the table already existed
     await sql`ALTER TABLE site_links ADD COLUMN IF NOT EXISTS whatsapp_enabled BOOLEAN NOT NULL DEFAULT TRUE`;
     await sql`ALTER TABLE site_links ADD COLUMN IF NOT EXISTS telegram_enabled BOOLEAN NOT NULL DEFAULT TRUE`;
     await sql`ALTER TABLE site_links ADD COLUMN IF NOT EXISTS livechat_enabled BOOLEAN NOT NULL DEFAULT TRUE`;
 
     const rows = await sql`
-      SELECT 
-        whatsapp_url, telegram_url, livechat_url, agent_name, 
-        whatsapp_enabled, telegram_enabled, livechat_enabled 
+      SELECT
+        whatsapp_url, telegram_url, livechat_url, agent_name,
+        whatsapp_enabled, telegram_enabled, livechat_enabled
       FROM site_links WHERE id = 1
     `;
     const row = rows[0];
@@ -111,16 +110,18 @@ export default async function Home() {
             html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); overflow-x: hidden; }
 
             body {
-              font-family: var(--font-body), system-ui, sans-serif;
+              font-family: system-ui, sans-serif;
               -webkit-font-smoothing: antialiased;
               position: relative;
             }
+
+            /* Body text font — vars live on <main>, so scope to main */
+            main { font-family: var(--font-body), system-ui, sans-serif; }
 
             /* ══════════════════════════════════════════
                BACKGROUND: golden globe & latitude lines
             ══════════════════════════════════════════ */
 
-            /* Gold star-specks, soft halo, fine dot lattice */
             body::before {
               content: "";
               position: fixed;
@@ -147,8 +148,6 @@ export default async function Home() {
                 34px 34px;
             }
 
-            /* The golden globe watermark — meridians, latitudes,
-               faint continents and glowing gold nodes */
             .bg-globe {
               position: fixed;
               inset: 0;
@@ -160,7 +159,6 @@ export default async function Home() {
               background-size: min(92vmin, 800px);
             }
 
-            /* Golden latitude arcs rising over the lower page (globe horizon) */
             body::after {
               content: "";
               position: fixed;
@@ -197,7 +195,6 @@ export default async function Home() {
             .ticker-group { display: flex; align-items: center; white-space: nowrap; }
             .ticker-item {
               display: inline-flex; align-items: center; gap: 24px; padding-right: 24px;
-              font-family: var(--font-body), system-ui, sans-serif;
               font-size: 10px; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase; color: #241B06;
             }
             .ticker-item::after { content: "✦"; font-size: 8px; opacity: 0.55; }
@@ -219,49 +216,30 @@ export default async function Home() {
             .brand { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-decoration: none; }
             .brand-sub { font-size: 9px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: var(--gold-deep); }
 
-            /* Nav CTA as plain text */
             .nav-cta {
-              font-size: 11px;
-              font-weight: 700;
-              letter-spacing: 1.6px;
-              text-transform: uppercase;
-              color: var(--ink-soft);
-              background: transparent;
-              border-radius: 0;
-              padding: 4px 0;
-              transition: color 0.2s;
-              white-space: nowrap;
-              cursor: pointer;
-              border: none;
-              text-decoration: none;
-              box-shadow: none;
-              display: inline-flex;
-              align-items: center;
+              font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+              color: var(--ink-soft); background: transparent; border-radius: 0; padding: 4px 0;
+              transition: color 0.2s; white-space: nowrap; cursor: pointer;
+              border: none; text-decoration: none; box-shadow: none;
+              display: inline-flex; align-items: center;
             }
             .nav-cta:hover { color: var(--gold-deep); transform: none; }
 
             /* ── Bottom CTA bar ── */
             .bottom-cta-bar {
-              position: relative;
-              z-index: 1;
-              display: flex;
-              justify-content: center;
+              position: relative; z-index: 1;
+              display: flex; justify-content: center;
               padding: 48px 24px 80px;
               pointer-events: auto;
               background: transparent;
             }
             .bottom-cta-bar > * { pointer-events: auto; }
 
-            /* Distinct styling for the Bottom CTA Pill (metallic gold) */
             .bottom-cta-bar .nav-cta {
-              font-size: 14px;
-              font-weight: 700;
-              letter-spacing: 0.6px;
-              text-transform: uppercase;
+              font-size: 14px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
               color: #241B06;
               background: linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%);
-              border-radius: 100px;
-              padding: 16px 36px;
+              border-radius: 100px; padding: 16px 36px;
               box-shadow: 0 10px 30px rgba(176,138,30,0.38);
               transition: box-shadow 0.2s, transform 0.15s;
               display: inline-block;
@@ -272,23 +250,15 @@ export default async function Home() {
               color: #241B06;
             }
 
-            /* ── Hero: Market Insights ── */
+            /* ── Hero ── */
             .hero-market-insights {
-              position: relative;
-              padding: 110px 24px 80px;
-              text-align: left;
-              z-index: 1;
+              position: relative; padding: 110px 24px 80px;
+              text-align: left; z-index: 1;
             }
-            .hero-inner {
-              max-width: 900px;
-              margin: 0 auto;
-            }
+            .hero-inner { max-width: 900px; margin: 0 auto; }
             .hero-title {
-              font-size: 44px;
-              font-weight: 800;
-              margin: 0 0 18px;
-              line-height: 1.08;
-              letter-spacing: 0.01em;
+              font-size: 44px; font-weight: 800;
+              margin: 0 0 18px; line-height: 1.08; letter-spacing: 0.01em;
               color: var(--ink);
             }
             .hero-title-gold {
@@ -300,83 +270,123 @@ export default async function Home() {
               -webkit-text-fill-color: transparent;
             }
             .hero-text {
-              font-size: 15.5px;
-              line-height: 1.8;
+              font-size: 15.5px; line-height: 1.8;
               color: var(--ink-soft);
-              max-width: 760px;
-              margin: 0 auto 40px;
+              max-width: 760px; margin: 0 auto 40px;
             }
-            .hero-experience {
-              display: flex;
-              justify-content: center;
-              margin-bottom: 32px;
+            .hero-contact { display: flex; justify-content: left; }
+
+            /* ── Banner ── */
+            .hero { position: relative; width: 100%; line-height: 0; background: var(--paper); }
+            .hero-image { display: block; width: 100%; height: auto; object-fit: cover; }
+            .hero-fade {
+              position: absolute; bottom: 0; left: 0; right: 0; height: 140px;
+              background: linear-gradient(to bottom, transparent 0%, var(--paper) 100%);
+              pointer-events: none; z-index: 2;
             }
 
-            .hero-contact {
-              display: flex;
-              justify-content: left;
+            /* ── Body section ── */
+            .body-section {
+              padding: 64px 24px 88px;
+              background: transparent; position: relative; overflow: visible; z-index: 2;
+            }
+            .body-inner {
+              position: relative; z-index: 1;
+              width: min(720px, 100%); margin: 0 auto; text-align: center;
+            }
+            .eyebrow {
+              font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+              color: var(--gold-deep); margin-bottom: 22px;
+            }
+            .body-text {
+              font-size: 17px; font-weight: 500; line-height: 1.9;
+              color: var(--ink-soft);
+              max-width: 660px; margin: 0 auto 48px;
             }
 
-            /* ── ExperienceSelector ── */
-            .experience-selector {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 10px;
+            /* ── Feature cards ── */
+            .features { display: grid; gap: 16px; margin: 0 0 52px; }
+            .features-grid-2 { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin: 0 auto; }
+            .feature {
+              background: var(--card);
+              border: 1px solid rgba(201,162,39,0.35);
+              border-radius: 18px; padding: 28px 22px; text-align: left;
+              box-shadow: 0 12px 32px rgba(143,111,20,0.08);
             }
-                        /* Body text font — vars live on <main>, so scope to main */
-            main { font-family: var(--font-body), system-ui, sans-serif; }
+            .feature-icon {
+              width: 36px; height: 36px; border-radius: 10px;
+              background: rgba(201,162,39,0.16);
+              display: grid; place-items: center;
+              margin-bottom: 16px;
+            }
+            .feature-icon svg { width: 18px; height: 18px; fill: #A8851F; }
+            .feature h3 { margin: 0 0 10px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink); }
+            .feature p { margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
 
             /* ════════════════════════════════════════
-               Path selector (Choose Your Path)
+               Path selector — selectable pick list
             ════════════════════════════════════════ */
-            .path-grid {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              gap: 14px;
-              width: min(100%, 860px);
-              margin: 6px auto 0;
+            .experience-selector {
+              display: flex; flex-direction: column; align-items: center; gap: 10px;
             }
-            .path-card {
-              position: relative;
-              display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
-              text-align: left;
+            .path-field {
+              width: min(100%, 640px);
               background: var(--card);
-              border: 1.5px solid rgba(201,162,39,0.35);
+              border: 1.5px solid rgba(201,162,39,0.45);
               border-radius: 18px;
-              padding: 22px 18px;
+              padding: 7px;
+              box-shadow: 0 12px 30px rgba(143,111,20,0.10);
+            }
+            .path-choice {
+              display: flex;
+              align-items: center;
+              gap: 14px;
+              width: 100%;
+              padding: 13px 14px;
+              border: none;
+              border-radius: 13px;
+              background: transparent;
               cursor: pointer;
               font-family: inherit;
-              transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+              text-align: left;
+              transition: background 0.15s, box-shadow 0.15s;
             }
-            .path-card:hover {
-              transform: translateY(-3px);
-              border-color: var(--gold);
-              box-shadow: 0 14px 30px rgba(143,111,20,0.14);
+            .path-choice + .path-choice { border-top: 1px solid rgba(201,162,39,0.18); }
+            .path-choice:hover { background: rgba(201,162,39,0.08); }
+            .path-choice.selected {
+              background: rgba(201,162,39,0.15);
+              box-shadow: inset 0 0 0 1.5px var(--gold);
             }
-            .path-card.selected {
-              border-color: var(--gold);
-              background: linear-gradient(180deg, #FFFDF4 0%, #FFFFFF 100%);
-              box-shadow: 0 16px 36px rgba(143,111,20,0.20);
+            .path-radio {
+              width: 22px; height: 22px; flex-shrink: 0;
+              border-radius: 50%;
+              border: 2px solid rgba(28,23,16,0.25);
+              display: grid; place-items: center;
+              transition: border-color 0.15s;
             }
+            .path-choice:hover .path-radio { border-color: rgba(201,162,39,0.7); }
+            .path-choice.selected .path-radio { border-color: var(--gold); }
+            .path-radio-dot {
+              width: 10px; height: 10px; border-radius: 50%;
+              background: var(--gold);
+              transform: scale(0);
+              transition: transform 0.18s cubic-bezier(.22,1,.36,1);
+            }
+            .path-choice.selected .path-radio-dot { transform: scale(1); }
+            .path-choice-text { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+            .path-choice-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+            .path-name { font-family: var(--font-display), Georgia, serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.1; }
+            .path-tagline { font-size: 9.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--gold-deep); }
+            .path-desc { font-size: 12.5px; line-height: 1.55; color: var(--muted); }
             .path-glyph {
-              width: 38px; height: 38px; border-radius: 10px;
+              width: 38px; height: 38px; flex-shrink: 0;
+              border-radius: 10px;
               background: rgba(201,162,39,0.16);
               color: #A8851F;
               display: grid; place-items: center;
-              margin-bottom: 8px;
             }
             .path-glyph svg { width: 19px; height: 19px; }
-            .path-name { font-family: var(--font-display), Georgia, serif; font-size: 16px; font-weight: 700; color: var(--ink); }
-            .path-tagline { font-size: 10px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--gold-deep); }
-            .path-desc { font-size: 12.5px; line-height: 1.6; color: var(--muted); }
-            .path-check {
-              position: absolute; top: 14px; right: 14px;
-              width: 22px; height: 22px; border-radius: 50%;
-              background: var(--gold); color: #fff;
-              display: grid; place-items: center;
-            }
-            .path-check svg { width: 12px; height: 12px; }
+            .path-hint { font-size: 12px; font-weight: 500; color: var(--muted); }
 
             .path-result {
               margin-top: 18px;
@@ -396,183 +406,27 @@ export default async function Home() {
               letter-spacing: 0.4px; text-transform: uppercase;
               margin-bottom: 14px;
             }
-            .path-perks { list-style: none; margi/* ════════════════════════════════════════
-   Path selector — selectable pick list
-════════════════════════════════════════ */
-.path-field {
-  width: min(100%, 640px);
-  background: var(--card);
-  border: 1.5px solid rgba(201,162,39,0.45);
-  border-radius: 18px;
-  padding: 7px;
-  box-shadow: 0 12px 30px rgba(143,111,20,0.10);
-}
-.path-choice {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  padding: 13px 14px;
-  border: none;
-  border-radius: 13px;
-  background: transparent;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-  transition: background 0.15s, box-shadow 0.15s;
-}
-.path-choice + .path-choice { border-top: 1px solid rgba(201,162,39,0.18); }
-.path-choice:hover { background: rgba(201,162,39,0.08); }
-.path-choice.selected {
-  background: rgba(201,162,39,0.15);
-  box-shadow: inset 0 0 0 1.5px var(--gold);
-}
-.path-radio {
-  width: 22px; height: 22px; flex-shrink: 0;
-  border-radius: 50%;
-  border: 2px solid rgba(28,23,16,0.25);
-  display: grid; place-items: center;
-  transition: border-color 0.15s;
-}
-.path-choice:hover .path-radio { border-color: rgba(201,162,39,0.7); }
-.path-choice.selected .path-radio { border-color: var(--gold); }
-.path-radio-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--gold);
-  transform: scale(0);
-  transition: transform 0.18s cubic-bezier(.22,1,.36,1);
-}
-.path-choice.selected .path-radio-dot { transform: scale(1); }
-.path-choice-text { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
-.path-choice-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.path-name { font-family: var(--font-display), Georgia, serif; font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.1; }
-.path-tagline { font-size: 9.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--gold-deep); }
-.path-desc { font-size: 12.5px; line-height: 1.55; color: var(--muted); }
-.path-glyph {
-  width: 38px; height: 38px; flex-shrink: 0;
-  border-radius: 10px;
-  background: rgba(201,162,39,0.16);
-  color: #A8851F;
-  display: grid; place-items: center;
-}
-.path-glyph svg { width: 19px; height: 19px; }
-.path-hint { font-size: 12px; font-weight: 500; color: var(--muted); }
-
-.path-result {
-  margin-top: 18px;
-  width: min(100%, 640px);
-  background: var(--card);
-  border: 1px solid rgba(201,162,39,0.4);
-  border-radius: 18px;
-  padding: 26px 24px;
-  text-align: center;
-  box-shadow: 0 14px 34px rgba(143,111,20,0.12);
-}
-.path-result-title {
-  display: block;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 15px; font-weight: 700;
-  color: var(--gold-deep);
-  letter-spacing: 0.4px; text-transform: uppercase;
-  margin-bottom: 14px;
-}
-.path-perks { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.path-perks li { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
-.path-perks li::before { content: "✦"; color: var(--gold); margin-right: 10px; font-size: 11px; }
-.path-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.path-alt { font-size: 12.5px; font-weight: 600; color: var(--muted); }
-.path-alt:hover { color: var(--gold-deep); }
-.path-soon { font-size: 12.5px; font-weight: 500; color: var(--muted); }
-
-@media (max-width: 640px) {
-  .path-field { width: 100%; }
-  .path-choice { padding: 12px 12px; gap: 12px; }
-  .path-glyph { display: none; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .path-result.revealed { animation: pathIn 0.35s cubic-bezier(.22,1,.36,1) both; }
-  @keyframes pathIn {
-    from { opacity: 0; transform: translateY(10px) scale(.97); }
-    to   { opacity: 1; transform: none; }
-  }
-}
-
-            /* ── Original Hero (Banner) ── */
-            .hero { position: relative; width: 100%; line-height: 0; background: var(--paper); }
-            .hero-image { display: block; width: 100%; height: auto; object-fit: cover; }
-            .hero-fade {
-              position: absolute; bottom: 0; left: 0; right: 0; height: 140px;
-              background: linear-gradient(to bottom, transparent 0%, var(--paper) 100%);
-              pointer-events: none; z-index: 2;
-            }
-
-            /* ── Body section ── */
-            .body-section {
-              padding: 64px 24px 88px;
-              background: transparent;
-              position: relative;
-              overflow: visible;
-              z-index: 2;
-            }
-            .body-inner {
-              position: relative; z-index: 1;
-              width: min(720px, 100%); margin: 0 auto; text-align: center;
-            }
-            .eyebrow {
-              font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-              color: var(--gold-deep); margin-bottom: 22px;
-            }
-            .body-text {
-              font-size: 17px; font-weight: 500; line-height: 1.9;
-              color: var(--ink-soft);
-              max-width: 660px; margin: 0 auto 48px;
-            }
-
-            /* ── Feature cards ── */
-            .features { display: grid; gap: 16px; margin: 0 0 52px; }
-            .features-grid-2 {
-              grid-template-columns: repeat(2, 1fr);
-              max-width: 800px;
-              margin: 0 auto;
-            }
-            .feature {
-              background: var(--card);
-              border: 1px solid rgba(201,162,39,0.35);
-              border-radius: 18px; padding: 28px 22px; text-align: left;
-              box-shadow: 0 12px 32px rgba(143,111,20,0.08);
-            }
-            .feature-icon {
-              width: 36px; height: 36px; border-radius: 10px;
-              background: rgba(201,162,39,0.16);
-              display: grid; place-items: center;
-              margin-bottom: 16px;
-            }
-            .feature-icon svg { width: 18px; height: 18px; fill: #A8851F; }
-            .feature h3 { margin: 0 0 10px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink); }
-            .feature p { margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
+            .path-perks { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+            .path-perks li { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
+            .path-perks li::before { content: "✦"; color: var(--gold); margin-right: 10px; font-size: 11px; }
+            .path-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+            .path-alt { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+            .path-alt:hover { color: var(--gold-deep); }
+            .path-soon { font-size: 12.5px; font-weight: 500; color: var(--muted); }
 
             /* ════════════════════════════════════════
                ContactUs component styles
             ════════════════════════════════════════ */
 
-            .contact-flow {
-              display: flex;
-              justify-content: center;
-              margin-top: 8px;
-            }
+            .contact-flow { display: flex; justify-content: center; margin-top: 8px; }
             .contact-us-btn {
-              display: inline-flex;
-              align-items: center;
-              gap: 10px;
+              display: inline-flex; align-items: center; gap: 10px;
               padding: 16px 36px;
-              border: none;
-              border-radius: 100px;
+              border: none; border-radius: 100px;
               background: linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%);
               color: #241B06;
               font-family: var(--font-display), serif;
-              font-size: 15px;
-              font-weight: 700;
-              letter-spacing: 0.3px;
+              font-size: 15px; font-weight: 700; letter-spacing: 0.3px;
               cursor: pointer;
               box-shadow: 0 10px 30px rgba(176,138,30,0.35);
               transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
@@ -582,156 +436,26 @@ export default async function Home() {
               box-shadow: 0 14px 36px rgba(176,138,30,0.45);
               filter: brightness(1.04);
             }
-            .contact-panel {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 22px;
-              width: 100%;
-            }
-            .selector-row {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-              gap: 18px;
-            }
-            .selector-block {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 10px;
-            }
+            .contact-panel { display: flex; flex-direction: column; align-items: center; gap: 22px; width: 100%; }
             .selector-title {
-              font-size: 11px;
-              font-weight: 700;
-              letter-spacing: 1.8px;
-              text-transform: uppercase;
+              font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
               color: var(--muted);
-              font-family: var(--font-body), system-ui, sans-serif;
             }
             .selector-title strong { color: var(--ink); }
 
-            /* Dropdown */
-            .dropdown { position: relative; }
-            .dropdown-backdrop {
-              position: fixed;
-              inset: 0;
-              z-index: 25;
-              background: transparent;
-            }
-            .dropdown-toggle {
-              appearance: none;
-              -webkit-appearance: none;
-              display: inline-flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 14px;
-              width: 100%;
-              min-width: 260px;
-              padding: 14px 22px;
-              border-radius: 100px;
-              border: 1.5px solid rgba(201,162,39,0.45);
-              background: rgba(255,255,255,0.72);
-              color: var(--ink);
-              font-family: var(--font-display), serif;
-              font-size: 14px;
-              font-weight: 600;
-              cursor: pointer;
-              text-align: left;
-              transition: border-color 0.2s, background 0.2s;
-            }
-            .dropdown-toggle:hover {
-              border-color: var(--gold);
-              background: #ffffff;
-            }
-            .dropdown-value.placeholder { color: var(--muted); }
-            .dropdown-chevron {
-              flex-shrink: 0;
-              color: var(--gold-deep);
-              transition: transform 0.2s;
-            }
-            .dropdown.open .dropdown-chevron { transform: rotate(180deg); }
-            .dropdown-menu {
-              position: absolute;
-              top: calc(100% + 8px);
-              left: 50%;
-              transform: translateX(-50%);
-              width: min(100vw - 40px, 300px);
-              z-index: 30;
-              background: #FFFDF6;
-              border: 1px solid rgba(201,162,39,0.4);
-              border-radius: 18px;
-              box-shadow: 0 18px 44px rgba(143,111,20,0.22);
-              padding: 8px;
-            }
-            .dropdown-option {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 12px;
-              width: 100%;
-              padding: 13px 16px;
-              border: none;
-              border-radius: 12px;
-              background: transparent;
-              color: var(--ink-soft);
-              font-family: var(--font-display), serif;
-              font-size: 14px;
-              font-weight: 600;
-              text-align: left;
-              cursor: pointer;
-              transition: background 0.15s;
-            }
-            .dropdown-option:hover { background: rgba(201,162,39,0.12); }
-            .dropdown-option.selected { color: var(--gold-deep); }
-            .dropdown-check {
-              width: 22px; height: 22px;
-              flex-shrink: 0;
-              border-radius: 50%;
-              border: 2px solid rgba(28,23,16,0.18);
-              display: grid;
-              place-items: center;
-              transition: background 0.15s, border-color 0.15s;
-            }
-            .dropdown-option.selected .dropdown-check {
-              background: var(--gold);
-              border-color: var(--gold);
-            }
-
-            /* Channels / pills */
-            .channels {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 14px;
-            }
-            .flow-summary {
-              font-size: 13px;
-              font-weight: 600;
-              color: var(--muted);
-              font-family: var(--font-body), system-ui, sans-serif;
-            }
+            .channels { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+            .flow-summary { font-size: 13px; font-weight: 600; color: var(--muted); }
             .flow-summary b { color: var(--ink); }
-            .contact-pills {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              flex-wrap: nowrap;
-              gap: 12px;
-            }
+            .contact-pills { display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; gap: 12px; }
             .contact-pill {
-              display: inline-flex;
-              align-items: center;
-              gap: 12px;
+              display: inline-flex; align-items: center; gap: 12px;
               padding: 13px 22px 13px 12px;
               border-radius: 23px;
               border: 1px solid rgba(201,162,39,0.5);
               background: #FFFFFF;
               color: var(--ink);
               text-decoration: none;
-              font-size: 15px;
-              font-weight: 700;
-              letter-spacing: 0.2px;
+              font-size: 15px; font-weight: 700; letter-spacing: 0.2px;
               box-shadow: 0 8px 22px rgba(143,111,20,0.16);
               transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
             }
@@ -739,51 +463,31 @@ export default async function Home() {
             .contact-pill.whatsapp .pill-icon-wrap { background: var(--whatsapp); }
             .contact-pill.telegram .pill-icon-wrap { background: var(--telegram); }
             .pill-icon-wrap {
-              width: 34px; height: 34px;
-              flex-shrink: 0;
+              width: 34px; height: 34px; flex-shrink: 0;
               border-radius: 10px;
               background: var(--gold);
-              display: grid;
-              place-items: center;
+              display: grid; place-items: center;
             }
             .pill-glyph { width: 18px; height: 18px; fill: #fff; display: block; }
             .pill-arrow { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.6; }
             .pill-label { white-space: nowrap; }
             .contact-close {
-              align-self: center;
-              margin-top: 4px;
+              align-self: center; margin-top: 4px;
               width: 34px; height: 34px;
               border-radius: 50%;
               border: 1px solid rgba(201,162,39,0.5);
               background: #FFFFFF;
               color: var(--muted);
-              font-size: 17px;
-              line-height: 1;
+              font-size: 17px; line-height: 1;
               cursor: pointer;
               transition: transform 0.25s, color 0.2s, background 0.2s;
             }
-            .contact-close:hover {
-              transform: rotate(90deg);
-              color: var(--ink);
-              background: rgba(201,162,39,0.12);
-            }
-
-            /* Animations */
-            @media (prefers-reduced-motion: no-preference) {
-              .contact-panel.revealed,
-              .channels.revealed {
-                animation: pillIn 0.35s cubic-bezier(.22,1,.36,1) both;
-              }
-              @keyframes pillIn {
-                from { opacity: 0; transform: translateY(10px) scale(.97); }
-                to   { opacity: 1; transform: none; }
-              }
-            }
+            .contact-close:hover { transform: rotate(90deg); color: var(--ink); background: rgba(201,162,39,0.12); }
 
             /* ── Footer ── */
             footer { padding: 36px 24px; background: var(--paper-deep); border-top: 1px solid var(--line); text-align: center; }
             .footer-name { font-size: 11px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 8px; }
-            .footer-copy { font-size: 11px; font-weight: 500; color: var(--muted); line-height: 1.6; margin: 0 auto; max-width: 560px; font-family: var(--font-body), system-ui, sans-serif; }
+            .footer-copy { font-size: 11px; font-weight: 500; color: var(--muted); line-height: 1.6; margin: 0 auto; max-width: 560px; }
 
             /* ── Responsive ── */
             @media (max-width: 640px) {
@@ -793,20 +497,34 @@ export default async function Home() {
               .body-text { font-size: 15px; }
               .features { gap: 12px; }
               .features-grid-2 { grid-template-columns: 1fr; }
-              .selector-row { flex-direction: column; align-items: center; }
               .contact-pill { padding: 11px 14px 11px 10px; font-size: 14px; }
               .pill-arrow { display: none; }
               .contact-pills { gap: 10px; }
-
               .hero-market-insights { padding: 72px 18px 48px; }
               .hero-title { font-size: 28px; }
               .hero-text { font-size: 15.5px; margin-bottom: 32px; }
-
               .bottom-cta-bar { padding: 32px 16px 48px; }
               .ticker { margin: 64px calc(50% - 50vw) 48px; }
+              .path-field { width: 100%; }
+              .path-choice { padding: 12px 12px; gap: 12px; }
+              .path-glyph { display: none; }
             }
 
+            /* ── Animations ── */
             @media (prefers-reduced-motion: no-preference) {
+              .contact-panel.revealed,
+              .channels.revealed {
+                animation: pillIn 0.35s cubic-bezier(.22,1,.36,1) both;
+              }
+              @keyframes pillIn {
+                from { opacity: 0; transform: translateY(10px) scale(.97); }
+                to   { opacity: 1; transform: none; }
+              }
+              .path-result.revealed { animation: pathIn 0.35s cubic-bezier(.22,1,.36,1) both; }
+              @keyframes pathIn {
+                from { opacity: 0; transform: translateY(10px) scale(.97); }
+                to   { opacity: 1; transform: none; }
+              }
               .fade-up { animation: fadeUp 0.75s cubic-bezier(.22,1,.36,1) both; }
               @keyframes fadeUp {
                 from { opacity: 0; transform: translateY(18px); }
@@ -878,7 +596,7 @@ export default async function Home() {
         {/* ── Features & Experience ── */}
         <section className="body-section">
           <div className="body-inner fade-up">
-            <div className="eyebrow">Why Choose RIC </div>
+            <div className="eyebrow">Why Choose RIC</div>
             <div className="features features-grid-2">
               <div className="feature">
                 <div className="feature-icon">
@@ -886,7 +604,7 @@ export default async function Home() {
                     <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
                   </svg>
                 </div>
-                <h3>Mentorship </h3>
+                <h3>Mentorship</h3>
                 <p>We are a community of personal finance and FIRE enthusiasts dedicated to sharing knowledge about building wealth, long-term investing, and all things related to money</p>
               </div>
               <div className="feature">
@@ -895,7 +613,7 @@ export default async function Home() {
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
                   </svg>
                 </div>
-                <h3> Guidance</h3>
+                <h3>Guidance</h3>
                 <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
               </div>
             </div>
@@ -917,14 +635,14 @@ export default async function Home() {
           </div>
 
           <div className="body-inner fade-up">
-  <div className="eyebrow">Choose Your Path</div>
-  <ExperienceSelector
-    telegramUrl={TELEGRAM_URL}
-    whatsappUrl={WHATSAPP_URL}
-    telegramEnabled={telegramEnabled}
-    whatsappEnabled={whatsappEnabled}
-  />
-</div>
+            <div className="eyebrow">Choose Your Path</div>
+            <ExperienceSelector
+              telegramUrl={TELEGRAM_URL}
+              whatsappUrl={WHATSAPP_URL}
+              telegramEnabled={telegramEnabled}
+              whatsappEnabled={whatsappEnabled}
+            />
+          </div>
         </section>
 
         {/* ── Bottom CTA bar → Telegram ── */}
