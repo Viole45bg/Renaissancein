@@ -42,8 +42,13 @@ export default function ContactUs({
 
   useEffect(() => {
     const handleOpen = () => setOpen(true);
+    // Listen for both the legacy and rebranded event names
     window.addEventListener("awr:open-contact", handleOpen);
-    return () => window.removeEventListener("awr:open-contact", handleOpen);
+    window.addEventListener("ric:open-contact", handleOpen);
+    return () => {
+      window.removeEventListener("awr:open-contact", handleOpen);
+      window.removeEventListener("ric:open-contact", handleOpen);
+    };
   }, []);
 
   const showWhatsApp = whatsappEnabled && !!whatsappUrl;
@@ -51,22 +56,14 @@ export default function ContactUs({
   const availableCount = (showWhatsApp ? 1 : 0) + (showTelegram ? 1 : 0);
   const isSingle = availableCount === 1;
 
-  // Only applied when a single channel is available:
-  // center the whole contact block inside the hero
   const centerFlowStyle: CSSProperties | undefined = isSingle
     ? { width: "100%", justifyContent: "center" }
     : undefined;
 
-  // Only applied to the lone pill: wider + vertically roomier
   const singlePillStyle: CSSProperties | undefined = isSingle
-    ? {
-        minWidth: 200,
-        justifyContent: "center",
-        padding: "10px 18px",
-      }
+    ? { minWidth: 200, justifyContent: "center", padding: "10px 18px" }
     : undefined;
 
-  // No channels available → hide completely
   if (availableCount === 0) return null;
 
   if (!open) {
@@ -77,7 +74,7 @@ export default function ContactUs({
           className="contact-us-btn"
           onClick={() => setOpen(true)}
         >
-          Connect with AWR Team
+          Connect with the Renaissance Team
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path
               d="M5 12h14M13 6l6 6-6 6"
