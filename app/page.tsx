@@ -745,9 +745,14 @@ export default async function Home() {
           </div>
 
           <div className="body-inner fade-up">
-            <div className="eyebrow">Select Your Experience</div>
-            <ExperienceSelector />
-          </div>
+  <div className="eyebrow">Choose Your Path</div>
+  <ExperienceSelector
+    telegramUrl={TELEGRAM_URL}
+    whatsappUrl={WHATSAPP_URL}
+    telegramEnabled={telegramEnabled}
+    whatsappEnabled={whatsappEnabled}
+  />
+</div>
         </section>
 
         {/* ── Bottom CTA bar → Telegram ── */}
