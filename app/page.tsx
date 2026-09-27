@@ -476,4 +476,300 @@ export default async function Home() {
             .dropdown-chevron {
               flex-shrink: 0;
               color: var(--gold-deep);
-              transition: transform 0.
+              transition: transform 0.2s;
+            }
+            .dropdown.open .dropdown-chevron { transform: rotate(180deg); }
+            .dropdown-menu {
+              position: absolute;
+              top: calc(100% + 8px);
+              left: 50%;
+              transform: translateX(-50%);
+              width: min(100vw - 40px, 300px);
+              z-index: 30;
+              background: #FFFDF6;
+              border: 1px solid rgba(201,162,39,0.4);
+              border-radius: 18px;
+              box-shadow: 0 18px 44px rgba(143,111,20,0.22);
+              padding: 8px;
+            }
+            .dropdown-option {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 12px;
+              width: 100%;
+              padding: 13px 16px;
+              border: none;
+              border-radius: 12px;
+              background: transparent;
+              color: var(--ink-soft);
+              font-family: var(--font-display), serif;
+              font-size: 14px;
+              font-weight: 600;
+              text-align: left;
+              cursor: pointer;
+              transition: background 0.15s;
+            }
+            .dropdown-option:hover { background: rgba(201,162,39,0.12); }
+            .dropdown-option.selected { color: var(--gold-deep); }
+            .dropdown-check {
+              width: 22px; height: 22px;
+              flex-shrink: 0;
+              border-radius: 50%;
+              border: 2px solid rgba(28,23,16,0.18);
+              display: grid;
+              place-items: center;
+              transition: background 0.15s, border-color 0.15s;
+            }
+            .dropdown-option.selected .dropdown-check {
+              background: var(--gold);
+              border-color: var(--gold);
+            }
+
+            /* Channels / pills */
+            .channels {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 14px;
+            }
+            .flow-summary {
+              font-size: 13px;
+              font-weight: 600;
+              color: var(--muted);
+              font-family: var(--font-body), system-ui, sans-serif;
+            }
+            .flow-summary b { color: var(--ink); }
+            .contact-pills {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: nowrap;
+              gap: 12px;
+            }
+            .contact-pill {
+              display: inline-flex;
+              align-items: center;
+              gap: 12px;
+              padding: 13px 22px 13px 12px;
+              border-radius: 23px;
+              border: 1px solid rgba(201,162,39,0.5);
+              background: #FFFFFF;
+              color: var(--ink);
+              text-decoration: none;
+              font-size: 15px;
+              font-weight: 700;
+              letter-spacing: 0.2px;
+              box-shadow: 0 8px 22px rgba(143,111,20,0.16);
+              transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            }
+            .contact-pill:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 12px 28px rgba(143,111,20,0.24); }
+            .contact-pill.whatsapp .pill-icon-wrap { background: var(--whatsapp); }
+            .contact-pill.telegram .pill-icon-wrap { background: var(--telegram); }
+            .pill-icon-wrap {
+              width: 34px; height: 34px;
+              flex-shrink: 0;
+              border-radius: 10px;
+              background: var(--gold);
+              display: grid;
+              place-items: center;
+            }
+            .pill-glyph { width: 18px; height: 18px; fill: #fff; display: block; }
+            .pill-arrow { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.6; }
+            .pill-label { white-space: nowrap; }
+            .contact-close {
+              align-self: center;
+              margin-top: 4px;
+              width: 34px; height: 34px;
+              border-radius: 50%;
+              border: 1px solid rgba(201,162,39,0.5);
+              background: #FFFFFF;
+              color: var(--muted);
+              font-size: 17px;
+              line-height: 1;
+              cursor: pointer;
+              transition: transform 0.25s, color 0.2s, background 0.2s;
+            }
+            .contact-close:hover {
+              transform: rotate(90deg);
+              color: var(--ink);
+              background: rgba(201,162,39,0.12);
+            }
+
+            /* Animations */
+            @media (prefers-reduced-motion: no-preference) {
+              .contact-panel.revealed,
+              .channels.revealed {
+                animation: pillIn 0.35s cubic-bezier(.22,1,.36,1) both;
+              }
+              @keyframes pillIn {
+                from { opacity: 0; transform: translateY(10px) scale(.97); }
+                to   { opacity: 1; transform: none; }
+              }
+            }
+
+            /* ── Footer ── */
+            footer { padding: 36px 24px; background: var(--paper-deep); border-top: 1px solid var(--line); text-align: center; }
+            .footer-name { font-size: 11px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 8px; }
+            .footer-copy { font-size: 11px; font-weight: 500; color: var(--muted); line-height: 1.6; margin: 0 auto; max-width: 560px; font-family: var(--font-body), system-ui, sans-serif; }
+
+            /* ── Responsive ── */
+            @media (max-width: 640px) {
+              .brand-bar { padding: 12px 16px; }
+              .brand-sub { display: none; }
+              .body-section { padding: 48px 18px 64px; }
+              .body-text { font-size: 15px; }
+              .features { gap: 12px; }
+              .features-grid-2 { grid-template-columns: 1fr; }
+              .selector-row { flex-direction: column; align-items: center; }
+              .contact-pill { padding: 11px 14px 11px 10px; font-size: 14px; }
+              .pill-arrow { display: none; }
+              .contact-pills { gap: 10px; }
+
+              .hero-market-insights { padding: 72px 18px 48px; }
+              .hero-title { font-size: 28px; }
+              .hero-text { font-size: 15.5px; margin-bottom: 32px; }
+
+              .bottom-cta-bar { padding: 32px 16px 48px; }
+              .ticker { margin: 64px calc(50% - 50vw) 48px; }
+            }
+
+            @media (prefers-reduced-motion: no-preference) {
+              .fade-up { animation: fadeUp 0.75s cubic-bezier(.22,1,.36,1) both; }
+              @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(18px); }
+                to   { opacity: 1; transform: none; }
+              }
+            }
+          `,
+        }}
+      />
+
+      <div>
+        {/* ── Golden globe watermark (background pattern) ── */}
+        <div className="bg-globe" aria-hidden="true" />
+
+        {/* ── Nav ── */}
+        <header className="brand-bar">
+          <div className="brand-bar-inner">
+            <Link href="/" className="brand">
+              <Logo width={160} color="#1C1710" />
+              <span className="brand-sub">Wisdom · Wealth · Legacy</span>
+            </Link>
+
+            {/* Navbar CTA → Telegram */}
+            {ctaUrl && (
+              <a href={ctaUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
+                Connect with Us
+              </a>
+            )}
+          </div>
+        </header>
+
+        {/* ── Hero: Market Insights ── */}
+        <section className="hero-market-insights" id="contact">
+          <div className="hero-inner fade-up">
+            <h1 className="hero-title">
+              <span className="hero-title-gold">RENAISSANCE</span>
+              <br />
+              <span style={{ whiteSpace: "nowrap" }}>INVESTORS CLUB</span>
+            </h1>
+            <p className="hero-text">
+              Step into a community where timeless wisdom meets modern markets. Whether you're focused
+              on growing your wealth, generating passive income, or building a legacy that lasts,
+              Renaissance Investors Club provides market insights, curated education, and guided
+              trading strategies to help you invest with clarity and confidence.
+            </p>
+
+            <div className="hero-contact">
+              <ContactUs
+                whatsappUrl={WHATSAPP_URL}
+                telegramUrl={TELEGRAM_URL}
+                whatsappEnabled={whatsappEnabled}
+                telegramEnabled={telegramEnabled}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ── Original Hero (Banner) ── */}
+        <section className="hero">
+          <Image
+            src="/banner.jpg"
+            alt="Renaissance Investors Club — golden globe emblem"
+            width={1536}
+            height={802}
+            priority
+            sizes="100vw"
+            className="hero-image"
+          />
+          <div className="hero-fade" aria-hidden="true" />
+        </section>
+
+        {/* ── Features & Experience ── */}
+        <section className="body-section">
+          <div className="body-inner fade-up">
+            <div className="eyebrow">Why Join Us</div>
+            <div className="features features-grid-2">
+              <div className="feature">
+                <div className="feature-icon">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
+                  </svg>
+                </div>
+                <h3>Education</h3>
+                <p>Curated resources that build real fluency — from market fundamentals to advanced strategy.</p>
+              </div>
+              <div className="feature">
+                <div className="feature-icon">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                  </svg>
+                </div>
+                <h3>Trading Guidance</h3>
+                <p>Expert-led, step-by-step support so every trade decision is informed and confident.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Ticker (full width) ── */}
+          <div className="ticker" role="status" aria-label="Now accepting new members">
+            <div className="ticker-track">
+              {[0, 1].map((copy) => (
+                <div className="ticker-group" key={copy} aria-hidden={copy === 1}>
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <span className="ticker-item" key={i}>
+                      Now accepting new members
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="body-inner fade-up">
+            <div className="eyebrow">Select Your Experience</div>
+            <ExperienceSelector />
+          </div>
+        </section>
+
+        {/* ── Bottom CTA bar → Telegram ── */}
+        {ctaUrl && (
+          <div className="bottom-cta-bar">
+            <a href={ctaUrl} target="_blank" rel="noopener noreferrer" className="nav-cta">
+              Connect with the Renaissance Team
+            </a>
+          </div>
+        )}
+
+        {/* ── Footer ── */}
+        <footer>
+          <div className="footer-name">Renaissance Investors Club</div>
+          <p className="footer-copy">
+            © {new Date().getFullYear()} Renaissance Investors Club. All rights reserved.
+          </p>
+        </footer>
+      </div>
+    </main>
+  );
+}
