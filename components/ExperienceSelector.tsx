@@ -119,8 +119,6 @@ export default function ExperienceSelector({
   const whatsappReady = whatsappEnabled && !!whatsappUrl;
   const path = PATHS.find((p) => p.id === selected) ?? null;
 
-  // Primary CTA: Telegram (the club's preferred channel); WhatsApp steps up
-  // only if Telegram is unavailable. Secondary: WhatsApp with pre-filled path.
   const primary = path
     ? telegramReady
       ? { label: "Continue on Telegram", href: telegramUrl }
@@ -135,34 +133,39 @@ export default function ExperienceSelector({
 
   return (
     <div className="experience-selector">
-      <span className="selector-title">Choose the path that fits you</span>
+      <span className="selector-title">Select the path that fits you</span>
 
-      <div className="path-grid" role="group" aria-label="Experience paths">
+      <div className="path-field" role="radiogroup" aria-label="Choose your experience path">
         {PATHS.map((p) => {
           const isSelected = selected === p.id;
           return (
             <button
               key={p.id}
               type="button"
-              className={`path-card ${isSelected ? "selected" : ""}`}
-              aria-pressed={isSelected}
+              role="radio"
+              aria-checked={isSelected}
+              className={`path-choice ${isSelected ? "selected" : ""}`}
               onClick={() => choose(p.id)}
             >
-              <span className="path-glyph" aria-hidden="true">{p.icon}</span>
-              <span className="path-name">{p.label}</span>
-              <span className="path-tagline">{p.tagline}</span>
-              <span className="path-desc">{p.desc}</span>
-              {isSelected && (
-                <span className="path-check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 12.5l5 5L20 6.5" />
-                  </svg>
+              <span className="path-radio" aria-hidden="true">
+                <span className="path-radio-dot" />
+              </span>
+              <span className="path-choice-text">
+                <span className="path-choice-head">
+                  <span className="path-name">{p.label}</span>
+                  <span className="path-tagline">{p.tagline}</span>
                 </span>
-              )}
+                <span className="path-desc">{p.desc}</span>
+              </span>
+              <span className="path-glyph" aria-hidden="true">{p.icon}</span>
             </button>
           );
         })}
       </div>
+
+      {!path && (
+        <span className="path-hint">Pick a path to see what&apos;s included and continue →</span>
+      )}
 
       {path && (
         <div className="path-result revealed" aria-live="polite">
