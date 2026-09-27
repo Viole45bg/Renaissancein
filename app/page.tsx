@@ -14,7 +14,7 @@ const display = Playfair_Display({
 
 const body = Lato({
   subsets: ["latin"],
-  weight: ["300", "400", "700"],
+  weight: ["300", "400", "700", "900"],   // ← added "900"
   variable: "--font-body",
 });
 
@@ -323,6 +323,96 @@ export default async function Home() {
               flex-direction: column;
               align-items: center;
               gap: 10px;
+            }
+                        /* Body text font — vars live on <main>, so scope to main */
+            main { font-family: var(--font-body), system-ui, sans-serif; }
+
+            /* ════════════════════════════════════════
+               Path selector (Choose Your Path)
+            ════════════════════════════════════════ */
+            .path-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 14px;
+              width: min(100%, 860px);
+              margin: 6px auto 0;
+            }
+            .path-card {
+              position: relative;
+              display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+              text-align: left;
+              background: var(--card);
+              border: 1.5px solid rgba(201,162,39,0.35);
+              border-radius: 18px;
+              padding: 22px 18px;
+              cursor: pointer;
+              font-family: inherit;
+              transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            }
+            .path-card:hover {
+              transform: translateY(-3px);
+              border-color: var(--gold);
+              box-shadow: 0 14px 30px rgba(143,111,20,0.14);
+            }
+            .path-card.selected {
+              border-color: var(--gold);
+              background: linear-gradient(180deg, #FFFDF4 0%, #FFFFFF 100%);
+              box-shadow: 0 16px 36px rgba(143,111,20,0.20);
+            }
+            .path-glyph {
+              width: 38px; height: 38px; border-radius: 10px;
+              background: rgba(201,162,39,0.16);
+              color: #A8851F;
+              display: grid; place-items: center;
+              margin-bottom: 8px;
+            }
+            .path-glyph svg { width: 19px; height: 19px; }
+            .path-name { font-family: var(--font-display), Georgia, serif; font-size: 16px; font-weight: 700; color: var(--ink); }
+            .path-tagline { font-size: 10px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--gold-deep); }
+            .path-desc { font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+            .path-check {
+              position: absolute; top: 14px; right: 14px;
+              width: 22px; height: 22px; border-radius: 50%;
+              background: var(--gold); color: #fff;
+              display: grid; place-items: center;
+            }
+            .path-check svg { width: 12px; height: 12px; }
+
+            .path-result {
+              margin-top: 18px;
+              width: min(100%, 640px);
+              background: var(--card);
+              border: 1px solid rgba(201,162,39,0.4);
+              border-radius: 18px;
+              padding: 26px 24px;
+              text-align: center;
+              box-shadow: 0 14px 34px rgba(143,111,20,0.12);
+            }
+            .path-result-title {
+              display: block;
+              font-family: var(--font-display), Georgia, serif;
+              font-size: 15px; font-weight: 700;
+              color: var(--gold-deep);
+              letter-spacing: 0.4px; text-transform: uppercase;
+              margin-bottom: 14px;
+            }
+            .path-perks { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+            .path-perks li { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
+            .path-perks li::before { content: "✦"; color: var(--gold); margin-right: 10px; font-size: 11px; }
+            .path-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+            .path-alt { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+            .path-alt:hover { color: var(--gold-deep); }
+            .path-soon { font-size: 12.5px; font-weight: 500; color: var(--muted); }
+
+            @media (max-width: 640px) {
+              .path-grid { grid-template-columns: 1fr; }
+            }
+            @media (prefers-reduced-motion: no-preference) {
+              .path-result.revealed { animation: pathIn 0.35s cubic-bezier(.22,1,.36,1) both; }
+              @keyframes pathIn {
+                from { opacity: 0; transform: translateY(10px) scale(.97); }
+                to   { opacity: 1; transform: none; }
+              }
             }
 
             /* ── Original Hero (Banner) ── */
