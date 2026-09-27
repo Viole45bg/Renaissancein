@@ -2,6 +2,62 @@
 
 import { useEffect, useState } from "react";
 
+/* ── Renaissance palette (matches the public site) ── */
+const paper = "#FBFAF5";
+const card = "#FFFFFF";
+const gold = "#C9A227";
+const goldDeep = "#8F6F14";
+const ink = "#1C1710";
+const text = ink;
+const textMuted = "rgba(28,23,16,0.55)";
+const line = "rgba(201,162,39,0.35)";
+const error = "#EF4444";
+const success = "#25D366";
+const whatsappColor = "#25D366";
+const telegramColor = "#229ED9";
+const livechatColor = "#2dd4bf";
+const btnText = "#241B06";
+const goldGradient =
+  "linear-gradient(135deg, #A8821E 0%, #C9A227 38%, #F3E3A6 52%, #C9A227 66%, #A8821E 100%)";
+
+/* Golden globe watermark (same mark as the homepage background) */
+const GLOBE_BG = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><g fill='none' stroke='%23C9A227'><circle cx='300' cy='300' r='286' stroke-opacity='0.4' stroke-width='1.4'/><ellipse cx='300' cy='300' rx='100' ry='286' stroke-opacity='0.24' stroke-width='1.1'/><ellipse cx='300' cy='300' rx='196' ry='286' stroke-opacity='0.2' stroke-width='1.1'/><ellipse cx='300' cy='300' rx='286' ry='90' stroke-opacity='0.28' stroke-width='1.1'/><ellipse cx='300' cy='208' rx='252' ry='55' stroke-opacity='0.18' stroke-width='1'/><ellipse cx='300' cy='392' rx='252' ry='55' stroke-opacity='0.18' stroke-width='1'/></g></svg>")`;
+
+const GlobeWatermark = () => (
+  <div
+    aria-hidden="true"
+    style={{
+      position: "fixed",
+      inset: 0,
+      backgroundImage: GLOBE_BG,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "50% 6%",
+      backgroundSize: "min(92vmin, 620px)",
+      pointerEvents: "none",
+      zIndex: 0,
+    }}
+  />
+);
+
+/* Small golden globe — the portal monogram */
+const GlobeMark = ({ size = 26 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={goldDeep}
+    strokeWidth="1.5"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10.5" />
+    <ellipse cx="12" cy="12" rx="4.2" ry="10.5" />
+    <ellipse cx="12" cy="12" rx="9" ry="10.5" strokeOpacity="0.55" />
+    <ellipse cx="12" cy="12" rx="10.5" ry="3.6" />
+    <line x1="1.5" y1="12" x2="22.5" y2="12" strokeOpacity="0.55" />
+  </svg>
+);
+
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState("");
@@ -11,7 +67,7 @@ export default function AdminPage() {
   const [telegram, setTelegram] = useState("");
   const [livechat, setLivechat] = useState("");
   const [agentName, setAgentName] = useState("");
-  
+
   // Visibility toggles
   const [whatsappEnabled, setWhatsappEnabled] = useState(true);
   const [telegramEnabled, setTelegramEnabled] = useState(true);
@@ -30,12 +86,12 @@ export default function AdminPage() {
         setTelegram(data.telegram || "");
         setLivechat(data.livechat || "");
         setAgentName(data.agentName || "");
-        
+
         // Load visibility states (default to true if not yet present in DB)
         setWhatsappEnabled(data.whatsappEnabled !== false);
         setTelegramEnabled(data.telegramEnabled !== false);
         setLivechatEnabled(data.livechatEnabled !== false);
-        
+
         setLoading(false);
       });
   }, [authed]);
@@ -78,19 +134,6 @@ export default function AdminPage() {
     setSaving(false);
     setSaveMessage(data.success ? "Saved!" : data.error || "Failed to save");
   }
-
-  const navy = "#050d1a";
-  const navyLight = "#1a2234";
-  const gold = "#1a6ef5";
-  const goldLight = "#6ee7b7";
-  const text = "#e5e7eb";
-  const textMuted = "#9ca3af";
-  const line = "#374151";
-  const error = "#EF4444";
-  const success = "#25D366";
-  const whatsappColor = "#25D366";
-  const telegramColor = "#229ED9";
-  const livechatColor = "#2dd4bf";
 
   // --- Custom Toggle Switch Component ---
   const ToggleSwitch = ({
@@ -137,22 +180,27 @@ export default function AdminPage() {
       <div
         style={{
           minHeight: "100dvh",
-          background: navy,
+          background: paper,
           padding: "32px 16px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          fontFamily: "var(--font-body), system-ui, sans-serif",
         }}
       >
+        <GlobeWatermark />
         <div
           style={{
             maxWidth: 380,
             width: "100%",
             margin: "0 auto",
-            background: navyLight,
+            background: card,
             padding: "32px 24px",
             borderRadius: 12,
             border: `1px solid ${line}`,
+            boxShadow: "0 16px 40px rgba(143,111,20,0.12)",
+            position: "relative",
+            zIndex: 1,
           }}
         >
           {/* Header */}
@@ -163,21 +211,17 @@ export default function AdminPage() {
                 height: 48,
                 borderRadius: "50%",
                 border: `1px solid ${gold}`,
-                color: goldLight,
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
                 marginBottom: 16,
-                fontFamily: "var(--font-display), serif",
-                fontSize: 20,
-                fontWeight: 700,
               }}
             >
-              A
+              <GlobeMark size={26} />
             </div>
             <h1
               style={{
-                fontFamily: "var(--font-display), serif",
+                fontFamily: "var(--font-display), Georgia, serif",
                 color: text,
                 fontSize: 24,
                 margin: "0 0 6px",
@@ -186,8 +230,8 @@ export default function AdminPage() {
             >
               Admin Portal
             </h1>
-            <p style={{ color: textMuted, fontSize: 13, margin: 0 }}>
-              AlphaWealthRetirement
+            <p style={{ color: goldDeep, fontSize: 13, margin: 0, letterSpacing: "0.5px" }}>
+              Renaissance Investors Club
             </p>
           </div>
 
@@ -216,7 +260,7 @@ export default function AdminPage() {
                 padding: "12px 14px",
                 borderRadius: 8,
                 border: `1px solid ${line}`,
-                background: navy,
+                background: paper,
                 color: text,
                 fontSize: 15,
                 outline: "none",
@@ -230,8 +274,8 @@ export default function AdminPage() {
                 style={{
                   padding: "10px 12px",
                   borderRadius: 8,
-                  background: "rgba(239, 68, 68, 0.1)",
-                  border: `1px solid rgba(239, 68, 68, 0.2)`,
+                  background: "rgba(239, 68, 68, 0.08)",
+                  border: `1px solid rgba(239, 68, 68, 0.25)`,
                   color: error,
                   fontSize: 13,
                   fontWeight: 600,
@@ -249,13 +293,14 @@ export default function AdminPage() {
                 padding: "14px",
                 borderRadius: 8,
                 border: "none",
-                background: gold,
-                color: navy,
+                background: goldGradient,
+                color: btnText,
                 fontWeight: 800,
                 fontSize: 13,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
                 cursor: "pointer",
+                boxShadow: "0 8px 22px rgba(176,138,30,0.30)",
               }}
             >
               Authenticate
@@ -271,22 +316,27 @@ export default function AdminPage() {
     <div
       style={{
         minHeight: "100dvh",
-        background: navy,
+        background: paper,
         padding: "32px 16px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        fontFamily: "var(--font-body), system-ui, sans-serif",
       }}
     >
+      <GlobeWatermark />
       <div
         style={{
           maxWidth: 480,
           width: "100%",
           margin: "0 auto",
-          background: navyLight,
+          background: card,
           padding: "28px 24px",
           borderRadius: 12,
           border: `1px solid ${line}`,
+          boxShadow: "0 16px 40px rgba(143,111,20,0.12)",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         {/* Header */}
@@ -326,7 +376,7 @@ export default function AdminPage() {
             </div>
             <h1
               style={{
-                fontFamily: "var(--font-display), serif",
+                fontFamily: "var(--font-display), Georgia, serif",
                 color: text,
                 fontSize: 22,
                 margin: 0,
@@ -427,7 +477,7 @@ export default function AdminPage() {
                   padding: "10px 12px",
                   borderRadius: 8,
                   border: `1px solid ${line}`,
-                  background: navy,
+                  background: paper,
                   color: text,
                   fontSize: 14,
                   outline: "none",
@@ -480,7 +530,7 @@ export default function AdminPage() {
                   padding: "10px 12px",
                   borderRadius: 8,
                   border: `1px solid ${line}`,
-                  background: navy,
+                  background: paper,
                   color: text,
                   fontSize: 14,
                   outline: "none",
@@ -533,7 +583,7 @@ export default function AdminPage() {
                   padding: "10px 12px",
                   borderRadius: 8,
                   border: `1px solid ${line}`,
-                  background: navy,
+                  background: paper,
                   color: text,
                   fontSize: 14,
                   outline: "none",
@@ -579,7 +629,7 @@ export default function AdminPage() {
                   padding: "10px 12px",
                   borderRadius: 8,
                   border: `1px solid ${line}`,
-                  background: navy,
+                  background: paper,
                   color: text,
                   fontSize: 14,
                   outline: "none",
@@ -597,14 +647,15 @@ export default function AdminPage() {
                 padding: "14px",
                 borderRadius: 8,
                 border: "none",
-                background: gold,
-                color: navy,
+                background: goldGradient,
+                color: btnText,
                 fontWeight: 800,
                 fontSize: 13,
                 letterSpacing: "1px",
                 textTransform: "uppercase",
                 cursor: saving ? "default" : "pointer",
                 opacity: saving ? 0.6 : 1,
+                boxShadow: "0 8px 22px rgba(176,138,30,0.30)",
               }}
             >
               {saving ? "Updating..." : "Save Changes"}
@@ -619,14 +670,14 @@ export default function AdminPage() {
                   borderRadius: 8,
                   background:
                     saveMessage === "Saved!"
-                      ? "rgba(37, 211, 102, 0.1)"
-                      : "rgba(239, 68, 68, 0.1)",
+                      ? "rgba(37, 211, 102, 0.10)"
+                      : "rgba(239, 68, 68, 0.08)",
                   border: `1px solid ${
                     saveMessage === "Saved!"
-                      ? "rgba(37, 211, 102, 0.2)"
-                      : "rgba(239, 68, 68, 0.2)"
+                      ? "rgba(37, 211, 102, 0.3)"
+                      : "rgba(239, 68, 68, 0.25)"
                   }`,
-                  color: saveMessage === "Saved!" ? success : error,
+                  color: saveMessage === "Saved!" ? "#1B8A4B" : error,
                   fontSize: 13,
                   fontWeight: 700,
                   textAlign: "center",
