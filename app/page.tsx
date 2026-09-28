@@ -591,12 +591,12 @@ export default async function Home() {
           <div className="hero-fade" aria-hidden="true" />
         </section>
 
-        {/* ── Features & Experience ── */}
-        <section className="body-section">
-          <div className="body-inner fade-up">
-          <div className="body-inner fade-up">
-  <div className="eyebrow">Why us?</div>
-            <div className="feature feature-wide">
+       {/* ── Features & Experience ── */}
+<section className="body-section">
+  <div className="body-inner fade-up">
+    <div className="eyebrow">Why us?</div>
+
+    <div className="feature feature-wide">
       <ul className="feature-points">
         <li>Proven Track records</li>
         <li>Expert team with cutting-edge insights</li>
@@ -605,31 +605,55 @@ export default async function Home() {
         <li>Our commitment to transparency, trust and building a supportive syndicate.</li>
       </ul>
     </div>
-  <div className="features features-grid-2">
-    <div className="feature">
-      <div className="feature-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
-        </svg>
-      </div>
-      <h3>Mentorship</h3>
-      <p>We are a community of personal finance and FIRE enthusiasts dedicated to sharing knowledge about building wealth, long-term investing, and all things related to money</p>
-    </div>
-    <div className="feature">
-      <div className="feature-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-        </svg>
-      </div>
-      <h3>Guidance</h3>
-      <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
-    </div>
 
-    
-    
+    <div className="features features-grid-2">
+      <div className="feature">
+        <div className="feature-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
+          </svg>
+        </div>
+        <h3>Mentorship</h3>
+        <p>We are a community of personal finance and FIRE enthusiasts dedicated to sharing knowledge about building wealth, long-term investing, and all things related to money</p>
+      </div>
+
+      <div className="feature">
+        <div className="feature-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+          </svg>
+        </div>
+        <h3>Guidance</h3>
+        <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
+      </div>
+    </div>
   </div>
-</div>
 
+  {/* ── Ticker (full width) ── */}
+  <div className="ticker" role="status" aria-label="Now accepting new members">
+    <div className="ticker-track">
+      {[0, 1].map((copy) => (
+        <div className="ticker-group" key={copy} aria-hidden={copy === 1}>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <span className="ticker-item" key={i}>
+              Now accepting new members
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div className="body-inner fade-up">
+    <div className="eyebrow">Choose Your Path</div>
+    <ExperienceSelector
+      telegramUrl={TELEGRAM_URL}
+      whatsappUrl={WHATSAPP_URL}
+      telegramEnabled={telegramEnabled}
+      whatsappEnabled={whatsappEnabled}
+    />
+  </div>
+</section>
           {/* ── Ticker (full width) ── */}
           <div className="ticker" role="status" aria-label="Now accepting new members">
             <div className="ticker-track">
