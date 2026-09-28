@@ -603,7 +603,8 @@ export default async function Home() {
                 <li>Expert team with cutting-edge insights</li>
                 <li>Tailored investment plan just for you</li>
                 <li>Smarter investing with innovative tools</li>
-                <li>Our commitment to transparency, trust and building a supportive syndicate.</li>
+                <li>Our commitment to transparency, trust & </li>
+                <li>Building a supportive syndicate.</li>
               </ul>
             </div>
             <div className="features features-grid-2">
