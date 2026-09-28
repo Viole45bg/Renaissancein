@@ -300,7 +300,10 @@ export default async function Home() {
             .feature p { margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
             
             /* ── "Why us" highlights card ── */
-            .feature-wide { grid-column: 1 / -1; }
+            .feature-wide {
+  grid-column: 1 / -1;
+  margin-bottom: 16px;   /* use 20px / 24px if you want more air */
+}
             .feature-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
             .feature-points li { font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
             .feature-points li::before { content: "✦"; color: var(--gold); margin-right: 10px; font-size: 11px; }
