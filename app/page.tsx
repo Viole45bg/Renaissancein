@@ -297,6 +297,11 @@ export default async function Home() {
             .feature-icon svg { width: 18px; height: 18px; fill: #A8851F; }
             .feature h3 { margin: 0 0 10px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--ink); }
             .feature p { margin: 0; font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
+            /* ── "Why us" highlights card ── */
+.feature-wide { grid-column: 1 / -1; }
+.feature-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.feature-points li { font-size: 13.5px; font-weight: 500; line-height: 1.75; color: rgba(28,23,16,0.72); }
+.feature-points li::before { content: "✦"; color: var(--gold); margin-right: 10px; font-size: 11px; }
 
             /* ════════════════════════════════════════
                Path selector — selectable pick list
@@ -589,28 +594,40 @@ export default async function Home() {
         {/* ── Features & Experience ── */}
         <section className="body-section">
           <div className="body-inner fade-up">
-            <div className="eyebrow">Why Choose RIC</div>
-            <div className="features features-grid-2">
-              <div className="feature">
-                <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
-                  </svg>
-                </div>
-                <h3>Mentorship</h3>
-                <p>We are a community of personal finance and FIRE enthusiasts dedicated to sharing knowledge about building wealth, long-term investing, and all things related to money</p>
-              </div>
-              <div className="feature">
-                <div className="feature-icon">
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                  </svg>
-                </div>
-                <h3>Guidance</h3>
-                <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
-              </div>
-            </div>
-          </div>
+          <div className="body-inner fade-up">
+  <div className="eyebrow">Why us?</div>
+  <div className="features features-grid-2">
+    <div className="feature">
+      <div className="feature-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2a5 5 0 110 10A5 5 0 0112 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
+        </svg>
+      </div>
+      <h3>Mentorship</h3>
+      <p>We are a community of personal finance and FIRE enthusiasts dedicated to sharing knowledge about building wealth, long-term investing, and all things related to money</p>
+    </div>
+    <div className="feature">
+      <div className="feature-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+        </svg>
+      </div>
+      <h3>Guidance</h3>
+      <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
+    </div>
+
+    {/* ── Why us — highlights ── */}
+    <div className="feature feature-wide">
+      <ul className="feature-points">
+        <li>Proven Track records</li>
+        <li>Expert team with cutting-edge insights</li>
+        <li>Tailored investment plan just for you</li>
+        <li>Smarter investing with innovative tools</li>
+        <li>Our commitment to transparency, trust and building a supportive syndicate.</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
           {/* ── Ticker (full width) ── */}
           <div className="ticker" role="status" aria-label="Now accepting new members">
