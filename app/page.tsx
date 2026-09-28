@@ -596,6 +596,15 @@ export default async function Home() {
           <div className="body-inner fade-up">
           <div className="body-inner fade-up">
   <div className="eyebrow">Why us?</div>
+            <div className="feature feature-wide">
+      <ul className="feature-points">
+        <li>Proven Track records</li>
+        <li>Expert team with cutting-edge insights</li>
+        <li>Tailored investment plan just for you</li>
+        <li>Smarter investing with innovative tools</li>
+        <li>Our commitment to transparency, trust and building a supportive syndicate.</li>
+      </ul>
+    </div>
   <div className="features features-grid-2">
     <div className="feature">
       <div className="feature-icon">
@@ -616,16 +625,8 @@ export default async function Home() {
       <p>No matter where you are in your financial journey, this is a space for supporting each other and fostering discussions that will help you achieve your goals.</p>
     </div>
 
-    {/* ── Why us — highlights ── */}
-    <div className="feature feature-wide">
-      <ul className="feature-points">
-        <li>Proven Track records</li>
-        <li>Expert team with cutting-edge insights</li>
-        <li>Tailored investment plan just for you</li>
-        <li>Smarter investing with innovative tools</li>
-        <li>Our commitment to transparency, trust and building a supportive syndicate.</li>
-      </ul>
-    </div>
+    
+    
   </div>
 </div>
 
